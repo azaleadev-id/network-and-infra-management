@@ -1,0 +1,496 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>RTRWNet Dashboard - Network Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chart-container { position: relative; height: 300px; width: 100%; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] text-on-surface">
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "on-primary-fixed-variant": "#003ea8",
+                  "tertiary": "#943700",
+                  "primary": "#004ac6",
+                  "on-background": "#191b23",
+                  "on-error": "#ffffff",
+                  "surface-container-highest": "#e1e2ed",
+                  "error": "#ba1a1a",
+                  "primary-fixed-dim": "#b4c5ff",
+                  "outline-variant": "#c3c6d7",
+                  "surface-bright": "#faf8ff",
+                  "surface-container-high": "#e7e7f3",
+                  "outline": "#737686",
+                  "on-primary-container": "#eeefff",
+                  "on-error-container": "#93000a",
+                  "on-surface-variant": "#434655",
+                  "on-secondary-fixed-variant": "#38485d",
+                  "surface-dim": "#d9d9e5",
+                  "on-tertiary-fixed": "#360f00",
+                  "on-tertiary-fixed-variant": "#7d2d00",
+                  "tertiary-fixed": "#ffdbcd",
+                  "primary-container": "#2563eb",
+                  "secondary-container": "#d0e1fb",
+                  "on-primary-fixed": "#00174b",
+                  "on-primary": "#ffffff",
+                  "secondary-fixed-dim": "#b7c8e1",
+                  "on-secondary-fixed": "#0b1c30",
+                  "error-container": "#ffdad6",
+                  "tertiary-container": "#bc4800",
+                  "surface-variant": "#e1e2ed",
+                  "on-secondary": "#ffffff",
+                  "surface-container": "#ededf9",
+                  "on-surface": "#191b23",
+                  "secondary-fixed": "#d3e4fe",
+                  "tertiary-fixed-dim": "#ffb596",
+                  "surface-container-lowest": "#ffffff",
+                  "on-tertiary-container": "#ffede6",
+                  "on-secondary-container": "#54647a",
+                  "background": "#faf8ff",
+                  "primary-fixed": "#dbe1ff",
+                  "inverse-primary": "#b4c5ff",
+                  "inverse-on-surface": "#f0f0fb",
+                  "surface-tint": "#0053db",
+                  "inverse-surface": "#2e3039",
+                  "surface-container-low": "#f3f3fe",
+                  "secondary": "#505f76",
+                  "on-tertiary": "#ffffff",
+                  "surface": "#faf8ff"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "container-margin-mobile": "16px",
+                  "gutter": "16px",
+                  "container-margin-desktop": "32px",
+                  "unit": "4px",
+                  "sm": "8px",
+                  "xs": "4px",
+                  "md": "16px",
+                  "lg": "24px",
+                  "xl": "32px"
+          },
+          "fontFamily": {
+                  "label-md": ["Inter"],
+                  "display-lg": ["Inter"],
+                  "headline-sm": ["Inter"],
+                  "label-sm": ["Inter"],
+                  "body-lg": ["Inter"],
+                  "body-md": ["Inter"],
+                  "body-sm": ["Inter"],
+                  "display-lg-mobile": ["Inter"],
+                  "headline-md": ["Inter"]
+          },
+          "fontSize": {
+                  "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                  "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                  "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                  "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                  "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                  "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                  "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                  "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                  "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+</script>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 bottom-0 flex flex-col gap-sm py-lg px-md z-40 h-full w-[280px] bg-surface-container-lowest dark:bg-surface-dim border-r border-outline-variant dark:border-outline">
+<div class="px-md mb-lg">
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">RTRWNet</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Network Admin v2.1</p>
+</div>
+<nav class="flex flex-col gap-1 grow">
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-lg font-bold opacity-90 transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-label-md font-label-md">Users</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-label-md font-label-md">Billing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="text-label-md font-label-md">Monitoring</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="block">block</span>
+<span class="text-label-md font-label-md">Isolir</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="text-label-md font-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-md pb-md">
+<button class="w-full py-3 px-4 bg-primary text-on-primary rounded-lg font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="support_agent">support_agent</span>
+            Support Ticket
+        </button>
+<div class="mt-lg flex items-center gap-3 pt-lg border-t border-outline-variant">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A professional headshot of a network operations center operator wearing a subtle headset." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0sCj4ul0GuHOOlSWNrIcIA99OYHOuYVSeC4FoMuImUtXFmW1INROQ8XxODc5dxudQuExnMd-0GcG70npNVfm2SZMMsTEKu_n3uCo3OHp7cqHsPRi6TSfTJ8g_IQqcwfTC-BFzpVCcosBbpWcqxRfLzHHBB_oN7JYruLx4jmokIfsMEb1iPaQzSf0BNYuz0HAuX4LukG5F6bQ-IiZqF9TJtHlmvpjlnwn4gs5v-J4ld-5PyhqfyjpXQjsBlYBr2I1bwfBYB05ZvgE">
+<div>
+<p class="text-label-md font-label-md text-on-surface">Main Network</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">ISP Operator</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 left-[280px] h-16 flex justify-between items-center px-lg z-30 bg-surface dark:bg-background border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-md">
+<div class="flex flex-col">
+<span class="text-label-md font-bold text-primary">Main Network</span>
+<span class="text-[10px] text-secondary -mt-1">tenant/main-net-idx</span>
+</div>
+<div class="h-6 w-px bg-outline-variant mx-2"></div>
+<div class="relative w-80">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-body-sm focus:ring-2 focus:ring-primary" placeholder="Search subscribers, ODP, or status..." type="text">
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-green-100 text-green-700 text-[11px] rounded-full font-bold border border-green-200"><span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>Main Network: Healthy (92%)</div></div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-2">
+<button class="relative hover:bg-surface-container dark:hover:bg-surface-variant rounded-full p-2 transition-colors focus:ring-2 focus:ring-primary ring-offset-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<button class="hover:bg-surface-container dark:hover:bg-surface-variant rounded-full p-2 transition-colors focus:ring-2 focus:ring-primary ring-offset-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="help">help</span>
+</button>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 border border-outline rounded-lg text-label-md font-label-md text-on-surface-variant hover:bg-surface-container transition-colors">
+            Quick Actions
+            <span class="material-symbols-outlined text-[18px]" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-[280px] pt-16 min-h-screen">
+<div class="p-lg max-w-[1600px] mx-auto">
+<!-- Page Header -->
+<div class="mb-xl flex justify-between items-end">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface">Network Overview</h2>
+<div class="flex items-center gap-2 text-body-md text-secondary">
+                    Real-time status for <span class="font-bold text-primary">Main Network</span>
+<span class="px-2 py-0.5 bg-green-100 text-green-700 text-[10px] rounded font-bold uppercase tracking-wide">Status: Healthy (92%)</span>
+</div>
+</div>
+<div class="flex gap-md">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-label-md font-label-md shadow-sm">
+<span class="material-symbols-outlined text-[20px]" data-icon="calendar_today">calendar_today</span>
+                    Oct 24, 2023
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-lg text-label-md font-label-md shadow-sm hover:brightness-110">
+<span class="material-symbols-outlined text-[20px]" data-icon="refresh">refresh</span>
+                    Update Data
+                </button>
+</div>
+</div>
+<!-- Stats Grid (Higher Density) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg mb-xl">
+<!-- Online Users -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex items-center justify-between shadow-sm hover:shadow-md transition-shadow">
+<div>
+<p class="text-label-md font-label-md text-secondary mb-1">Online Users</p>
+<h3 class="text-display-lg-mobile font-display-lg-mobile text-green-600">124</h3>
+<div class="flex items-center gap-1 text-[12px] font-bold text-green-600 mt-2">
+<span class="material-symbols-outlined text-[14px]" data-icon="trending_up">trending_up</span>
+                        91.2% Network Health
+                    </div>
+</div>
+<div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-green-600">
+<span class="material-symbols-outlined text-[32px]" data-icon="wifi">wifi</span>
+</div>
+</div>
+<!-- Offline Users -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex items-center justify-between shadow-sm hover:shadow-md transition-shadow">
+<div>
+<p class="text-label-md font-label-md text-secondary mb-1">Offline Users</p>
+<h3 class="text-display-lg-mobile font-display-lg-mobile text-on-surface">12</h3>
+<div class="flex items-center gap-1 text-[12px] font-bold text-secondary mt-2">
+<span class="material-symbols-outlined text-[14px]" data-icon="stable">check_circle</span>
+                        Within limits (8.8%)
+                    </div>
+</div>
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary bg-secondary-container">
+<span class="material-symbols-outlined text-[32px] text-on-secondary-container" data-icon="wifi_off">wifi_off</span>
+</div>
+</div>
+<!-- Active Alerts -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex items-center justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute top-2 right-2 px-2 py-0.5 bg-error text-on-error text-[10px] rounded-full font-bold animate-pulse">3 ACTIVE</div>
+<div>
+<p class="text-label-md font-label-md text-secondary mb-1">Active Alerts</p>
+<h3 class="text-display-lg-mobile font-display-lg-mobile text-error">3</h3>
+<div class="flex items-center gap-1 text-[12px] font-bold text-error mt-2">
+<span class="material-symbols-outlined text-[14px]" data-icon="warning">warning</span>
+                        Priority: Critical
+                    </div>
+</div>
+<div class="w-12 h-12 rounded-lg bg-error-container flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[32px]" data-icon="notifications_active">notifications_active</span>
+</div>
+</div>
+<!-- Bills Due -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex items-center justify-between shadow-sm hover:shadow-md transition-shadow">
+<div>
+<p class="text-label-md font-label-md text-secondary mb-1">Bills Due</p>
+<h3 class="text-display-lg-mobile font-display-lg-mobile text-tertiary">8</h3>
+<div class="flex items-center gap-1 text-[12px] font-bold text-tertiary mt-2">
+<span class="material-symbols-outlined text-[14px]" data-icon="schedule">calendar_month</span>
+                        7 days remaining
+                    </div>
+</div>
+<div class="w-12 h-12 rounded-lg bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[32px]" data-icon="calendar_month">calendar_month</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid Content -->
+<div class="grid grid-cols-12 gap-lg items-start">
+<!-- Chart Area (Col 1-8) -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+<div class="flex justify-between items-center mb-lg">
+<div>
+<h4 class="text-headline-sm font-headline-sm text-on-surface">User Trend (Last 7 Days)</h4>
+<p class="text-body-sm text-secondary">Aggregate connectivity across all sub-networks</p>
+</div>
+<div class="flex gap-2 p-1 bg-surface-container-low rounded-lg">
+<button class="px-3 py-1 bg-white shadow-sm rounded text-label-sm font-label-sm text-primary">Daily</button>
+<button class="px-3 py-1 text-label-sm font-label-sm text-secondary hover:text-on-surface">Hourly</button>
+</div>
+</div>
+<div class="chart-container flex items-end justify-between gap-4 pt-4">
+<!-- Mock Chart Representation -->
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full flex items-end gap-1 px-1">
+<div class="bg-primary/20 w-1/2 rounded-t-sm transition-all group-hover:bg-primary/40" style="height: 120px;"></div>
+<div class="bg-primary w-1/2 rounded-t-sm transition-all" style="height: 180px;"></div>
+</div>
+<span class="mt-2 text-label-sm font-label-sm text-secondary">Mon</span>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full flex items-end gap-1 px-1">
+<div class="bg-primary/20 w-1/2 rounded-t-sm transition-all group-hover:bg-primary/40" style="height: 110px;"></div>
+<div class="bg-primary w-1/2 rounded-t-sm transition-all" style="height: 170px;"></div>
+</div>
+<span class="mt-2 text-label-sm font-label-sm text-secondary">Tue</span>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full flex items-end gap-1 px-1">
+<div class="bg-primary/20 w-1/2 rounded-t-sm transition-all group-hover:bg-primary/40" style="height: 140px;"></div>
+<div class="bg-primary w-1/2 rounded-t-sm transition-all" style="height: 200px;"></div>
+</div>
+<span class="mt-2 text-label-sm font-label-sm text-secondary">Wed</span>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full flex items-end gap-1 px-1">
+<div class="bg-primary/20 w-1/2 rounded-t-sm transition-all group-hover:bg-primary/40" style="height: 130px;"></div>
+<div class="bg-primary w-1/2 rounded-t-sm transition-all" style="height: 190px;"></div>
+</div>
+<span class="mt-2 text-label-sm font-label-sm text-secondary">Thu</span>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full flex items-end gap-1 px-1">
+<div class="bg-primary/20 w-1/2 rounded-t-sm transition-all group-hover:bg-primary/40" style="height: 150px;"></div>
+<div class="bg-primary w-1/2 rounded-t-sm transition-all" style="height: 220px;"></div>
+</div>
+<span class="mt-2 text-label-sm font-label-sm text-secondary">Fri</span>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full flex items-end gap-1 px-1">
+<div class="bg-primary/20 w-1/2 rounded-t-sm transition-all group-hover:bg-primary/40" style="height: 160px;"></div>
+<div class="bg-primary w-1/2 rounded-t-sm transition-all" style="height: 250px;"></div>
+</div>
+<span class="mt-2 text-label-sm font-label-sm text-secondary text-primary font-bold">Sat</span>
+</div>
+<div class="flex-1 flex flex-col items-center group">
+<div class="w-full flex items-end gap-1 px-1">
+<div class="bg-primary/20 w-1/2 rounded-t-sm transition-all group-hover:bg-primary/40" style="height: 140px;"></div>
+<div class="bg-primary w-1/2 rounded-t-sm transition-all" style="height: 210px;"></div>
+</div>
+<span class="mt-2 text-label-sm font-label-sm text-secondary">Sun</span>
+</div>
+</div>
+<div class="mt-lg pt-lg border-t border-outline-variant flex items-center gap-xl">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-label-sm font-label-sm text-on-surface">Online Users</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary/20"></span>
+<span class="text-label-sm font-label-sm text-secondary">Offline Users</span>
+</div>
+</div>
+</div>
+<!-- Recent Alerts (Technical Scope) -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm flex flex-col h-full">
+<div class="flex justify-between items-center mb-lg">
+<h4 class="text-headline-sm font-headline-sm text-on-surface">Recent Alerts</h4>
+<a class="text-label-md font-label-md text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="space-y-4 overflow-y-auto pr-1">
+<!-- ODP-5 DOWN -->
+<div class="flex gap-4 p-3 rounded-lg bg-error-container/20 border-l-4 border-error">
+<div class="mt-1 text-error">
+<span class="material-symbols-outlined text-[20px]">router</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-0.5">
+<span class="text-label-md font-bold text-on-surface">ODP-5 DOWN</span>
+<span class="text-[10px] text-secondary">2m ago</span>
+</div>
+<p class="text-body-sm text-on-surface-variant leading-snug">Fiber cut detected. Estimated 42 users affected in Cluster A.</p>
+</div>
+</div>
+<!-- ODC-2 Warning -->
+<div class="flex gap-4 p-3 rounded-lg bg-tertiary-fixed/20 border-l-4 border-tertiary">
+<div class="mt-1 text-tertiary">
+<span class="material-symbols-outlined text-[20px]">hub</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-0.5">
+<span class="text-label-md font-bold text-on-surface">ODC-2 Warning</span>
+<span class="text-[10px] text-secondary">15m ago</span>
+</div>
+<p class="text-body-sm text-on-surface-variant leading-snug">High temperature detected in cabinet. Cooling fan failure suspected.</p>
+</div>
+</div>
+<!-- User Offline -->
+<div class="flex gap-4 p-3 rounded-lg bg-surface-container-highest border-l-4 border-outline">
+<div class="mt-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">person_off</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-0.5">
+<span class="text-label-md font-bold text-on-surface">User Offline</span>
+<span class="text-[10px] text-secondary">25m ago</span>
+</div>
+<p class="text-body-sm text-on-surface-variant leading-snug">Subscriber 'Budi-01' (SN: ZTEG123456) disconnected.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Activity Timeline (Data-Rich Technical Logs) -->
+<div class="col-span-12 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+<h4 class="text-headline-sm font-headline-sm text-on-surface mb-lg">Recent System Activity</h4>
+<div class="relative">
+<div class="absolute left-4 top-2 bottom-2 w-0.5 bg-outline-variant"></div>
+<div class="space-y-6 relative">
+<!-- Timeline Entry: Login Detected -->
+<div class="flex gap-6 items-start pl-1">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[18px]">security</span>
+</div>
+<div class="flex-1">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-1">
+<div class="flex items-center gap-2">
+<p class="text-body-md text-on-surface font-bold">Login pengguna terdeteksi dari IP 192.168.1.45</p>
+<span class="px-2 py-0.5 bg-primary/10 text-primary text-[10px] rounded font-bold uppercase">Admin: Ahmad</span>
+</div>
+<span class="text-label-sm font-label-sm text-secondary">Today, 02:30 PM</span>
+</div>
+</div>
+</div>
+<!-- Timeline Entry: Backup MikroTik -->
+<div class="flex gap-6 items-start pl-1">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[18px]">backup</span>
+</div>
+<div class="flex-1">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-1">
+<p class="text-body-md text-on-surface"><span class="font-bold">Backup MikroTik Berhasil</span> disinkronkan ke Cloud Storage</p>
+<span class="text-label-sm font-label-sm text-secondary">Today, 01:00 PM</span>
+</div>
+<div class="mt-1 flex gap-2">
+<span class="text-[11px] text-secondary font-mono">FILE: backup-core-20231024.rsc (245 KB)</span>
+</div>
+</div>
+</div>
+<!-- Timeline Entry: Isolir Diterapkan -->
+<div class="flex gap-6 items-start pl-1">
+<div class="w-8 h-8 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[18px]">block</span>
+</div>
+<div class="flex-1">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-1">
+<p class="text-body-md text-on-surface"><span class="font-bold">Isolir diterapkan otomatis</span> untuk 12 akun dengan tunggakan &gt;30 hari</p>
+<span class="text-label-sm font-label-sm text-secondary">Today, 00:01 AM</span>
+</div>
+<div class="mt-2 flex gap-2">
+<button class="text-label-sm text-primary font-bold hover:underline">View Affected List</button>
+</div>
+</div>
+</div>
+<!-- Timeline Entry: API Sync -->
+<div class="flex gap-6 items-start pl-1">
+<div class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+</div>
+<div class="flex-1">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-1">
+<p class="text-body-md text-on-surface"><span class="font-bold">WhatsApp Gateway Sync</span>: Sent 85 reminders successfully</p>
+<span class="text-label-sm font-label-sm text-secondary">Yesterday, 09:30 PM</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB for quick access -->
+<button class="fixed bottom-lg right-lg w-14 h-14 bg-primary text-on-primary rounded-full shadow-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all z-50 group">
+<span class="material-symbols-outlined text-[28px]" data-icon="add">add</span>
+<div class="absolute right-full mr-4 bg-inverse-surface text-inverse-on-surface px-4 py-2 rounded-lg text-label-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-lg">
+        New Subscriber
+    </div>
+</button>
+<script>
+    // Micro-interaction for sidebar active states
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            document.querySelectorAll('nav a').forEach(l => {
+                l.classList.remove('bg-secondary-container', 'text-on-secondary-container', 'font-bold');
+                l.classList.add('text-secondary');
+            });
+            this.classList.add('bg-secondary-container', 'text-on-secondary-container', 'font-bold');
+            this.classList.remove('text-secondary');
+        });
+    });
+</script>
+
+
+</body></html>

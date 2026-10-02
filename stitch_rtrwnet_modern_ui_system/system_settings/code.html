@@ -1,0 +1,486 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Settings - RTRWNet ISP Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#191b23",
+                    "surface-container": "#ededf9",
+                    "secondary-fixed": "#d3e4fe",
+                    "on-tertiary": "#ffffff",
+                    "inverse-surface": "#2e3039",
+                    "primary": "#004ac6",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "tertiary": "#943700",
+                    "surface-variant": "#e1e2ed",
+                    "primary-fixed": "#dbe1ff",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#360f00",
+                    "background": "#faf8ff",
+                    "on-primary-container": "#eeefff",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#f0f0fb",
+                    "on-secondary-fixed": "#0b1c30",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "outline-variant": "#c3c6d7",
+                    "on-surface-variant": "#434655",
+                    "surface-container-low": "#f3f3fe",
+                    "tertiary-container": "#bc4800",
+                    "surface-dim": "#d9d9e5",
+                    "surface": "#faf8ff",
+                    "on-primary-fixed": "#00174b",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#e7e7f3",
+                    "tertiary-fixed": "#ffdbcd",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "on-background": "#191b23",
+                    "primary-container": "#2563eb",
+                    "on-tertiary-container": "#ffede6",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "on-secondary-container": "#54647a",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "surface-bright": "#faf8ff",
+                    "secondary": "#505f76",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#0053db",
+                    "surface-container-highest": "#e1e2ed",
+                    "secondary-container": "#d0e1fb",
+                    "inverse-primary": "#b4c5ff",
+                    "error-container": "#ffdad6",
+                    "outline": "#737686"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "sm": "8px",
+                    "unit": "4px",
+                    "gutter": "16px",
+                    "container-margin-mobile": "16px",
+                    "lg": "24px",
+                    "container-margin-desktop": "32px",
+                    "xs": "4px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "display-lg-mobile": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 bottom-0 flex flex-col gap-sm py-lg px-md z-40 bg-surface-container-lowest dark:bg-surface-dim border-r border-outline-variant dark:border-outline w-[280px]">
+<div class="px-4 mb-lg">
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">RTRWNet</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant opacity-70">Network Admin</p>
+</div>
+<nav class="flex flex-col gap-1 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">group</span>
+<span class="text-label-md font-label-md">Users</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">payments</span>
+<span class="text-label-md font-label-md">Billing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">monitoring</span>
+<span class="text-label-md font-label-md">Monitoring</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">block</span>
+<span class="text-label-md font-label-md">Isolir</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">assessment</span>
+<span class="text-label-md font-label-md">Reports</span>
+</a>
+<!-- Active State -->
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-lg font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-4 pt-lg">
+<button class="w-full bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">confirmation_number</span>
+                Support Ticket
+            </button>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 left-[280px] h-16 flex justify-between items-center px-lg z-30 bg-surface dark:bg-background border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-md">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 w-64 text-body-sm focus:ring-2 focus:ring-primary" placeholder="Search system configs..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-sm">
+<button class="hover:bg-surface-container dark:hover:bg-surface-variant rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hover:bg-surface-container dark:hover:bg-surface-variant rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant"></div>
+<button class="flex items-center gap-3 hover:bg-surface-container dark:hover:bg-surface-variant rounded-lg p-1 pr-3 transition-colors">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A professional headshot of a network administrator in a modern office, cinematic lighting, sharp focus, technical atmosphere, corporate style, high quality photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNc_QHZEopugreuLl8EmVa29rS600SEyFUYTb2Ed-UVd7ArsBYU0s0Bv_TFcYOGq0Ns6RIFN_Z-qeGuCY3YzRxYXL_YK2MMTOxVagPi--tl6F9QpMZBcsUtbVJi3EmbkTcCjr-MMZkD3Ag8IBArzrpToHIohgxSFHd3O0FdfPEo5KQZ_GYHsGLDRZV2RkJOqiaZZWTItRk-l7EPAMgjGsSC2wX8pKYuqN4-baAl8244fEsuJe5yKdYo2uDHSd2LS0KRK25t_TZoLw">
+<div class="text-left">
+<p class="text-label-sm font-bold text-on-surface">Admin User</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Quick Actions</p>
+</div>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-[280px] pt-16 min-h-screen">
+<div class="p-xl max-w-6xl mx-auto">
+<header class="mb-lg">
+<h2 class="text-headline-md font-headline-md text-on-surface mb-xs">System Settings</h2>
+<p class="text-body-md text-on-surface-variant">Configure your network parameters, tenant identity, and automation channels.</p>
+</header>
+<div class="flex gap-lg items-start">
+<!-- Settings Tabs Sidebar -->
+<nav class="w-64 flex flex-col gap-1 sticky top-24">
+<button class="flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all bg-primary-container text-on-primary-container font-bold shadow-sm" id="tab-tenant" onclick="switchTab('tenant')">
+<span class="material-symbols-outlined">business</span>
+<span class="text-label-md">Tenant Profile</span>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all text-on-surface-variant hover:bg-surface-container-high" id="tab-mikrotik" onclick="switchTab('mikrotik')">
+<span class="material-symbols-outlined">router</span>
+<span class="text-label-md">MikroTik Config</span>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all text-on-surface-variant hover:bg-surface-container-high" id="tab-backup" onclick="switchTab('backup')">
+<span class="material-symbols-outlined">cloud_upload</span>
+<span class="text-label-md">Backup Settings</span>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all text-on-surface-variant hover:bg-surface-container-high" id="tab-notifications" onclick="switchTab('notifications')">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="text-label-md">Notification Channels</span>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all text-on-surface-variant hover:bg-surface-container-high" id="tab-admins" onclick="switchTab('admins')">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="text-label-md">Admin Users</span>
+</button>
+</nav>
+<!-- Settings Content Canvas -->
+<div class="flex-1 space-y-lg">
+<!-- Tenant Profile Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden block" id="section-tenant">
+<div class="p-lg border-b border-outline-variant bg-surface-container-low">
+<h3 class="text-headline-sm font-headline-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">business</span>
+                                Tenant Profile
+                            <span class="ml-2 px-2 py-0.5 bg-primary-fixed text-on-primary-fixed text-[12px] rounded-full font-bold uppercase tracking-tight">Current Tenant</span></h3>
+</div>
+<div class="p-lg space-y-md"><p class="text-body-sm text-on-surface-variant mb-md italic">These settings apply specifically to the active tenant profile and will affect all associated network nodes.</p>
+<div class="grid grid-cols-2 gap-md">
+<div class="space-y-1">
+<label class="text-label-md font-bold block">Company Name</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 focus:ring-2 focus:ring-primary outline-none transition-all" type="text" value="RTRWNet Digital Solutions">
+</div>
+<div class="space-y-1">
+<label class="text-label-md font-bold block">Contact Person</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 focus:ring-2 focus:ring-primary outline-none transition-all" type="text" value="Budi Santoso">
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-label-md font-bold block">Office Address</label>
+<textarea class="w-full border border-outline-variant rounded-lg p-2 focus:ring-2 focus:ring-primary outline-none transition-all" rows="3">Jl. Merdeka No. 45, Blok C, Jakarta Selatan, 12110</textarea>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="space-y-1">
+<label class="text-label-md font-bold block">Support Email</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 focus:ring-2 focus:ring-primary outline-none transition-all" type="email" value="support@rtrwnet.com">
+</div>
+<div class="space-y-1">
+<label class="text-label-md font-bold block">WhatsApp Business</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 focus:ring-2 focus:ring-primary outline-none transition-all" type="text" value="+62 812 3456 7890">
+</div>
+</div>
+</div>
+<div class="p-lg bg-surface-container-low flex justify-end gap-md">
+<button class="px-lg py-2 border border-outline text-secondary font-label-md rounded-lg hover:bg-surface-variant transition-colors">Discard</button>
+<button class="px-lg py-2 bg-primary text-on-primary font-label-md rounded-lg shadow-md hover:opacity-90 transition-opacity">Save Changes</button>
+</div>
+</section>
+<!-- MikroTik Config Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hidden" id="section-mikrotik">
+<div class="p-lg border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h3 class="text-headline-sm font-headline-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">router</span>
+                                MikroTik Credentials
+                            </h3>
+<span class="px-2 py-1 bg-green-100 text-green-800 text-label-sm font-bold rounded-full border border-green-200">Connected</span>
+</div>
+<div class="p-lg space-y-md">
+<div class="bg-blue-50 border border-blue-100 p-md rounded-lg flex items-start gap-md">
+<span class="material-symbols-outlined text-blue-600 mt-0.5">info</span>
+<p class="text-body-sm text-blue-800">Ensure the API port is enabled on your MikroTik router (IP &gt; Services) and matches the port specified below.</p>
+</div>
+<div class="grid grid-cols-3 gap-md">
+<div class="col-span-2 space-y-1">
+<label class="text-label-md font-bold block">Router IP Address</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 font-mono focus:ring-2 focus:ring-primary outline-none transition-all" type="text" value="192.168.88.1">
+</div>
+<div class="space-y-1">
+<label class="text-label-md font-bold block">API Port</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 font-mono focus:ring-2 focus:ring-primary outline-none transition-all" type="number" value="8728">
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="space-y-1">
+<label class="text-label-md font-bold block">Username</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 focus:ring-2 focus:ring-primary outline-none transition-all" type="text" value="admin_rtrwnet">
+</div>
+<div class="space-y-1 relative">
+<label class="text-label-md font-bold block">Password</label>
+<input class="w-full border border-outline-variant rounded-lg p-2 focus:ring-2 focus:ring-primary outline-none transition-all" type="password" value="********">
+<button class="absolute right-3 top-9 text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<div class="p-lg bg-surface-container-low flex justify-between gap-md">
+<button class="px-lg py-2 bg-secondary-container text-on-secondary-container font-label-md rounded-lg hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">sync</span>
+                                Test Connection
+                            </button>
+<button class="px-lg py-2 bg-primary text-on-primary font-label-md rounded-lg shadow-md hover:opacity-90 transition-opacity">Update Configuration</button>
+</div>
+</section>
+<!-- Notification Channels Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hidden" id="section-notifications">
+<div class="p-lg border-b border-outline-variant bg-surface-container-low">
+<h3 class="text-headline-sm font-headline-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">notifications_active</span>
+                                Notification Channels
+                            </h3>
+</div>
+<div class="divide-y divide-outline-variant">
+<!-- WhatsApp -->
+<div class="p-lg flex items-center justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-lg">
+<div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-green-700">chat</span>
+</div>
+<div>
+<h4 class="text-body-md font-bold">WhatsApp Business API</h4>
+<p class="text-body-sm text-on-surface-variant">Send invoice and isolir alerts via WhatsApp</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-outline rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Email -->
+<div class="p-lg flex items-center justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-lg">
+<div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-blue-700">mail</span>
+</div>
+<div>
+<h4 class="text-body-md font-bold">Email Notifications</h4>
+<p class="text-body-sm text-on-surface-variant">System logs and monthly billing reports</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-outline rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Telegram -->
+<div class="p-lg flex items-center justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-lg">
+<div class="w-12 h-12 rounded-full bg-sky-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-sky-700">send</span>
+</div>
+<div>
+<h4 class="text-body-md font-bold">Telegram Bot</h4>
+<p class="text-body-sm text-on-surface-variant">Critical uptime alerts for administrators</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-outline rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Placeholder for Backup (Demo functionality) -->
+<section class="p-xl bg-surface-container border border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center text-center hidden" id="section-backup">
+<span class="material-symbols-outlined text-6xl text-outline-variant mb-md">backup</span>
+<h3 class="text-headline-sm font-bold">Backup &amp; Restoration</h3>
+<p class="text-body-md text-on-surface-variant max-w-md mt-2">Manage your database snapshots and cloud synchronization settings.</p>
+<button class="mt-lg px-lg py-2 bg-primary text-on-primary rounded-lg">Coming Soon</button>
+</section>
+<!-- Admin Users Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hidden" id="section-admins">
+<div class="p-lg border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h3 class="text-headline-sm font-headline-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">admin_panel_settings</span>
+                                Admin Users
+                            </h3>
+<button class="bg-primary-fixed text-on-primary-fixed-variant px-4 py-2 rounded-lg font-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                                Invite Admin
+                            </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-label-sm text-on-surface-variant uppercase tracking-wider">
+<tr>
+<th class="px-lg py-3 font-semibold">User</th>
+<th class="px-lg py-3 font-semibold">Role</th>
+<th class="px-lg py-3 font-semibold">Status</th>
+<th class="px-lg py-3 font-semibold text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-[12px]">BS</div>
+<div>
+<p class="text-body-sm font-bold">Budi Santoso</p>
+<p class="text-label-sm text-on-surface-variant">budi@rtrwnet.com</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-4 text-body-sm">Super Admin</td>
+<td class="px-lg py-4">
+<span class="bg-green-100 text-green-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase">Active</span>
+</td>
+<td class="px-lg py-4 text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold text-[12px]">AL</div>
+<div>
+<p class="text-body-sm font-bold">Ani Lestari</p>
+<p class="text-label-sm text-on-surface-variant">ani.billing@rtrwnet.com</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-4 text-body-sm">Billing Staff</td>
+<td class="px-lg py-4">
+<span class="bg-green-100 text-green-700 px-2 py-0.5 rounded text-[10px] font-bold uppercase">Active</span>
+</td>
+<td class="px-lg py-4 text-right">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function switchTab(tabId) {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.add('hidden');
+                section.classList.remove('block');
+            });
+            
+            // Show selected section
+            const target = document.getElementById('section-' + tabId);
+            if(target) {
+                target.classList.remove('hidden');
+                target.classList.add('block');
+            }
+
+            // Reset tab styles
+            document.querySelectorAll('nav > button').forEach(btn => {
+                btn.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold', 'shadow-sm');
+                btn.classList.add('text-on-surface-variant', 'hover:bg-surface-container-high');
+            });
+
+            // Set active tab style
+            const activeBtn = document.getElementById('tab-' + tabId);
+            if(activeBtn) {
+                activeBtn.classList.remove('text-on-surface-variant', 'hover:bg-surface-container-high');
+                activeBtn.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold', 'shadow-sm');
+            }
+        }
+
+        // Tooltip or interaction simulation
+        document.querySelectorAll('input, textarea').forEach(el => {
+            el.addEventListener('focus', () => {
+                el.parentElement.querySelector('label').classList.add('text-primary');
+            });
+            el.addEventListener('blur', () => {
+                el.parentElement.querySelector('label').classList.remove('text-primary');
+            });
+        });
+    </script>
+
+
+</body></html>

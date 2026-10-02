@@ -1,0 +1,486 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Billing Management - RTRWNet</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #faf8ff;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .custom-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#003ea8",
+                    "tertiary": "#943700",
+                    "primary": "#004ac6",
+                    "on-background": "#191b23",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e1e2ed",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "outline-variant": "#c3c6d7",
+                    "surface-bright": "#faf8ff",
+                    "surface-container-high": "#e7e7f3",
+                    "outline": "#737686",
+                    "on-primary-container": "#eeefff",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#434655",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "surface-dim": "#d9d9e5",
+                    "on-tertiary-fixed": "#360f00",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "tertiary-fixed": "#ffdbcd",
+                    "primary-container": "#2563eb",
+                    "secondary-container": "#d0e1fb",
+                    "on-primary-fixed": "#00174b",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "on-secondary-fixed": "#0b1c30",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#bc4800",
+                    "surface-variant": "#e1e2ed",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#ededf9",
+                    "on-surface": "#191b23",
+                    "secondary-fixed": "#d3e4fe",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#ffede6",
+                    "on-secondary-container": "#54647a",
+                    "background": "#faf8ff",
+                    "primary-fixed": "#dbe1ff",
+                    "inverse-primary": "#b4c5ff",
+                    "inverse-on-surface": "#f0f0fb",
+                    "surface-tint": "#0053db",
+                    "inverse-surface": "#2e3039",
+                    "surface-container-low": "#f3f3fe",
+                    "secondary": "#505f76",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#faf8ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-margin-mobile": "16px",
+                    "gutter": "16px",
+                    "container-margin-desktop": "32px",
+                    "unit": "4px",
+                    "sm": "8px",
+                    "xs": "4px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Side Navigation -->
+<aside class="fixed left-0 top-0 bottom-0 flex flex-col gap-sm py-lg px-md z-40 bg-surface-container-lowest border-r border-outline-variant w-[280px]">
+<div class="mb-lg px-md">
+<span class="text-headline-md font-headline-md font-bold text-primary">RTRWNet</span>
+<p class="text-label-sm text-on-surface-variant">Network Admin</p>
+</div>
+<nav class="flex flex-col gap-xs flex-1">
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-md text-label-md">Users</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md">Billing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="font-label-md text-label-md">Monitoring</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="block">block</span>
+<span class="font-label-md text-label-md">Isolir</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+<div class="mt-auto">
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+</nav>
+<button class="mt-md w-full py-3 px-4 bg-primary text-on-primary rounded-lg font-label-md flex items-center justify-center gap-2 shadow-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[20px]" data-icon="confirmation_number">confirmation_number</span>
+            Support Ticket
+        </button>
+</aside>
+<!-- Top Navigation -->
+<header class="fixed top-0 right-0 left-[280px] h-16 flex justify-between items-center px-lg z-30 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-md flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-11 pr-4 py-2 focus:ring-2 focus:ring-primary focus:bg-surface transition-all text-body-sm" placeholder="Search billing records..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="hover:bg-surface-container rounded-full p-2 transition-colors relative">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="hover:bg-surface-container rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="help">help</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant mx-sm"></div>
+<button class="flex items-center gap-sm bg-surface-container-high px-4 py-2 rounded-full hover:bg-surface-container-highest transition-colors">
+<span class="font-label-md text-label-md text-on-surface">Quick Actions</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="expand_more">expand_more</span>
+</button>
+<img class="w-10 h-10 rounded-full border border-outline-variant object-cover" data-alt="Professional headshot of a network administrator, clean corporate style, soft studio lighting, focused gaze, minimalist background in blue and gray tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChh_ajOSWKIqDqBzNwHYE1PUpp7FMJMVIj7UKlAlPJumjY-TjvehIWvOSrFhd2HdDARrEzUyzQdv7Ofy_n0OUco_Y4FRSzM3qw4WF9xCZinHL-zZmnyeSYJMAf-boh8rYOehXyViTNinXtTnn7wopnwHMB4tSgsN7s3S6vitpERxRbj4keCEL8fk1uU1EHR9_-w_K_6Eki6GK88dSDt7Yp2bSDXOZ_Y6q8S7ObbzOCRTDsYuj2r8qspzDivxvzgbj89-fy9pgEzp4">
+</div>
+</header>
+<!-- Main Content -->
+<main class="pt-16 pl-[280px] min-h-screen">
+<div class="p-lg flex flex-col gap-lg">
+<!-- Page Header & Main Actions -->
+<div class="flex justify-between items-end">
+<div>
+<h1 class="text-headline-md font-headline-md text-on-surface">Billing Management</h1>
+<p class="text-body-sm text-on-surface-variant">Manage subscriber invoices and payment status.</p>
+</div>
+<div class="flex gap-md">
+<div class="relative group">
+<button class="flex items-center gap-2 px-4 py-2.5 bg-surface border border-outline-variant rounded-lg font-label-md hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="layers">layers</span>
+                            Bulk Actions
+                            <span class="material-symbols-outlined text-[18px]" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</button>
+</div>
+<button class="flex items-center gap-2 px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label-md shadow-md hover:shadow-lg transition-all active:scale-95" onclick="toggleModal('addBillModal')">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+                        Tambah Tagihan
+                    </button>
+</div>
+</div>
+<!-- Filter Bar -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-wrap items-center gap-md">
+<div class="flex flex-col gap-1 min-w-[200px]">
+<label class="text-label-sm text-on-surface-variant ml-1">Date Range</label>
+<div class="flex items-center gap-2 px-3 py-2 bg-surface border border-outline-variant rounded-lg">
+<span class="material-symbols-outlined text-[18px] text-outline" data-icon="calendar_today">calendar_today</span>
+<input class="border-none p-0 bg-transparent text-body-sm focus:ring-0 w-full" readonly="" type="text" value="Oct 1 - Oct 31, 2023">
+</div>
+</div>
+<div class="flex flex-col gap-1 min-w-[160px]">
+<label class="text-label-sm text-on-surface-variant ml-1">Payment Status</label>
+<select class="bg-surface border border-outline-variant rounded-lg py-2 px-3 text-body-sm focus:ring-primary focus:border-primary">
+<option>All Status</option>
+<option>Paid</option>
+<option>Unpaid</option>
+</select>
+</div>
+<div class="flex flex-col gap-1 min-w-[160px]">
+<label class="text-label-sm text-on-surface-variant ml-1">Billing Type</label>
+<select class="bg-surface border border-outline-variant rounded-lg py-2 px-3 text-body-sm focus:ring-primary focus:border-primary">
+<option>All Types</option>
+<option>Monthly Service</option>
+<option>Installation</option>
+<option>Hardware Replacement</option>
+</select>
+</div>
+<div class="flex-1"></div>
+<button class="flex items-center gap-2 px-4 py-2 text-primary font-label-md hover:bg-primary/5 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="filter_list">filter_list</span>
+                    More Filters
+                </button>
+<button class="px-4 py-2 bg-secondary text-on-secondary rounded-lg font-label-md">
+                    Apply Filters
+                </button>
+</div>
+<!-- Data Table Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-lg py-4"><input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"></th>
+<th class="px-md py-4 text-label-sm text-secondary uppercase tracking-wider">Pengguna</th>
+<th class="px-md py-4 text-label-sm text-secondary uppercase tracking-wider">Jumlah (Rp)</th>
+<th class="px-md py-4 text-label-sm text-secondary uppercase tracking-wider">Jatuh Tempo</th>
+<th class="px-md py-4 text-label-sm text-secondary uppercase tracking-wider">Status Pembayaran</th>
+<th class="px-md py-4 text-label-sm text-secondary uppercase tracking-wider">Billing Type</th>
+<th class="px-md py-4 text-label-sm text-secondary uppercase tracking-wider">Isolir Status</th>
+<th class="px-lg py-4 text-label-sm text-secondary uppercase tracking-wider text-right">Aksi</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-lg py-4"><input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"></td>
+<td class="px-md py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-[12px]">AS</div>
+<div>
+<p class="text-body-sm font-semibold text-on-surface">Agus Setiawan</p>
+<p class="text-[12px] text-on-surface-variant">ID: #RT00421</p>
+</div>
+</div>
+</td>
+<td class="px-md py-4 text-body-sm font-medium">Rp. 250.000</td>
+<td class="px-md py-4 text-body-sm">25 Oct 2023</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    Paid
+                                </span>
+</td>
+<td class="px-md py-4 text-body-sm">Monthly</td>
+<td class="px-md py-4"><div class="flex items-center gap-1.5 text-green-800"><span class="material-symbols-outlined text-[18px]" data-icon="check_circle">check_circle</span><span class="text-xs font-medium">Active</span></div></td>
+<td class="px-lg py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 hover:bg-surface-container rounded-lg text-secondary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="receipt_long">receipt_long</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded-lg text-secondary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-lg py-4"><input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"></td>
+<td class="px-md py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-bold text-[12px]">BK</div>
+<div>
+<p class="text-body-sm font-semibold text-on-surface">Budi Kusuma</p>
+<p class="text-[12px] text-on-surface-variant">ID: #RT00502</p>
+</div>
+</div>
+</td>
+<td class="px-md py-4 text-body-sm font-medium">Rp. 250.000</td>
+<td class="px-md py-4 text-body-sm">28 Oct 2023</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                    Unpaid
+                                </span>
+</td>
+<td class="px-md py-4 text-body-sm">Monthly</td>
+<td class="px-md py-4"><div class="flex items-center gap-1.5 text-yellow-800"><span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span><span class="text-xs font-medium">Pending</span></div></td>
+<td class="px-lg py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 hover:bg-surface-container rounded-lg text-secondary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="receipt_long">receipt_long</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded-lg text-secondary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-lg py-4"><input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"></td>
+<td class="px-md py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold text-[12px]">MR</div>
+<div>
+<p class="text-body-sm font-semibold text-on-surface">Maya Rosiana</p>
+<p class="text-[12px] text-on-surface-variant">ID: #RT00331</p>
+</div>
+</div>
+</td>
+<td class="px-md py-4 text-body-sm font-medium">Rp. 500.000</td>
+<td class="px-md py-4 text-body-sm">22 Oct 2023</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                    Overdue
+                                </span>
+</td>
+<td class="px-md py-4 text-body-sm">Installation</td>
+<td class="px-md py-4"><div class="flex items-center gap-1.5 text-on-surface-variant"><span class="material-symbols-outlined text-[18px]" data-icon="do_not_disturb_on">do_not_disturb_on</span><span class="text-xs font-medium">N/A</span></div></td>
+<td class="px-lg py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 hover:bg-surface-container rounded-lg text-secondary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="receipt_long">receipt_long</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded-lg text-secondary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination -->
+<div class="px-lg py-4 bg-surface-container-low flex justify-between items-center">
+<p class="text-label-sm text-on-surface-variant">Showing 1 to 10 of 245 entries</p>
+<div class="flex gap-2">
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="px-3.5 py-1.5 bg-primary text-on-primary rounded-lg font-label-sm">1</button>
+<button class="px-3.5 py-1.5 border border-outline-variant rounded-lg font-label-sm hover:bg-surface-container-high transition-colors">2</button>
+<button class="px-3.5 py-1.5 border border-outline-variant rounded-lg font-label-sm hover:bg-surface-container-high transition-colors">3</button>
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- 'Add Bill' Modal -->
+<div class="fixed inset-0 z-50 hidden flex items-center justify-center p-md" id="addBillModal">
+<div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="toggleModal('addBillModal')"></div>
+<div class="relative bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[921px]">
+<div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface">
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Tambah Tagihan</h3>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors" onclick="toggleModal('addBillModal')">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<div class="p-lg overflow-y-auto scrollbar-hide flex-1">
+<form class="space-y-md">
+<!-- User Dropdown -->
+<div class="flex flex-col gap-1.5">
+<label class="text-label-md text-on-surface">Pengguna</label>
+<div class="relative">
+<select class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-2.5 text-body-md focus:ring-2 focus:ring-primary focus:border-primary appearance-none">
+<option disabled="" selected="" value="">Pilih Pengguna...</option>
+<option>Agus Setiawan (#RT00421)</option>
+<option>Budi Kusuma (#RT00502)</option>
+<option>Maya Rosiana (#RT00331)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="flex flex-col gap-1.5">
+<label class="text-label-md text-on-surface">Jumlah (Rp)</label>
+<input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-2.5 text-body-md focus:ring-2 focus:ring-primary focus:border-primary" placeholder="250000" type="number">
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-label-md text-on-surface">Jatuh Tempo</label>
+<input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-2.5 text-body-md focus:ring-2 focus:ring-primary focus:border-primary" type="date">
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-label-md text-on-surface">Status Pembayaran</label>
+<div class="flex gap-2">
+<label class="flex-1">
+<input checked="" class="hidden peer" name="payment_status" type="radio">
+<div class="flex items-center justify-center p-3 border border-outline-variant rounded-lg cursor-pointer peer-checked:bg-secondary-container peer-checked:border-primary peer-checked:text-on-secondary-container transition-all">
+<span class="text-label-md">Unpaid</span>
+</div>
+</label>
+<label class="flex-1">
+<input class="hidden peer" name="payment_status" type="radio">
+<div class="flex items-center justify-center p-3 border border-outline-variant rounded-lg cursor-pointer peer-checked:bg-secondary-container peer-checked:border-primary peer-checked:text-on-secondary-container transition-all">
+<span class="text-label-md">Paid</span>
+</div>
+</label>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-label-md text-on-surface">Catatan</label>
+<textarea class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-2.5 text-body-md focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Tambahkan catatan khusus untuk tagihan ini..." rows="3"></textarea>
+</div>
+<hr class="border-outline-variant my-sm">
+<!-- Isolir Toggle -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined" data-icon="block">block</span>
+</div>
+<div>
+<p class="text-label-md font-bold text-on-surface">Otomatis Isolir</p>
+<p class="text-label-sm text-on-surface-variant">Putus koneksi jika lewat jatuh tempo</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value="">
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</form>
+</div>
+<div class="px-lg py-md border-t border-outline-variant flex justify-end gap-md bg-surface">
+<button class="px-6 py-2.5 text-secondary font-label-md hover:bg-surface-container rounded-lg transition-colors" onclick="toggleModal('addBillModal')">Batal</button>
+<button class="px-8 py-2.5 bg-primary text-on-primary rounded-lg font-label-md shadow-md hover:shadow-lg active:scale-95 transition-all">Simpan Tagihan</button>
+</div>
+</div>
+</div>
+<script>
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Click outside dropdowns logic
+        window.onclick = function(event) {
+            if (!event.target.matches('.bulk-trigger')) {
+                // handle close
+            }
+        }
+    </script>
+
+
+
+
+</body></html>

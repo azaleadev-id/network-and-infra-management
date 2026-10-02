@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login | RTRWNet ISP Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e1e2ed",
+                        "surface": "#faf8ff",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#bc4800",
+                        "secondary": "#505f76",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#ededf9",
+                        "on-surface-variant": "#434655",
+                        "on-secondary-fixed": "#0b1c30",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-highest": "#e1e2ed",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "tertiary-fixed": "#ffdbcd",
+                        "outline-variant": "#c3c6d7",
+                        "on-secondary-container": "#54647a",
+                        "background": "#faf8ff",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "tertiary": "#943700",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "on-primary-fixed": "#00174b",
+                        "primary-fixed": "#dbe1ff",
+                        "inverse-surface": "#2e3039",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "inverse-on-surface": "#f0f0fb",
+                        "primary-container": "#2563eb",
+                        "on-tertiary-container": "#ffede6",
+                        "surface-container-low": "#f3f3fe",
+                        "surface-tint": "#0053db",
+                        "surface-container-high": "#e7e7f3",
+                        "on-surface": "#191b23",
+                        "outline": "#737686",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "surface-dim": "#d9d9e5",
+                        "secondary-container": "#d0e1fb",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#eeefff",
+                        "secondary-fixed": "#d3e4fe",
+                        "primary": "#004ac6",
+                        "on-background": "#191b23"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "gutter": "16px",
+                        "container-margin-mobile": "16px",
+                        "container-margin-desktop": "32px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "unit": "4px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .network-pattern {
+            background-color: #faf8ff;
+            background-image: radial-gradient(#0053db 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+            opacity: 0.1;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex items-center justify-center relative overflow-hidden">
+<!-- Animated Atmospheric Background -->
+<div class="absolute inset-0 z-0">
+
+<div class="absolute inset-0 network-pattern"></div>
+</div>
+<!-- Main Auth Container -->
+<main class="relative z-10 w-full max-w-[1200px] grid md:grid-cols-2 gap-0 md:h-[720px] bg-surface-container-lowest shadow-2xl overflow-hidden rounded-xl md:mx-gutter border border-outline-variant">
+<!-- Left Side: Branding & Value Prop -->
+<div class="hidden md:flex flex-col justify-between p-xl bg-primary text-on-primary relative overflow-hidden">
+<!-- Decorative Element -->
+<div class="absolute -bottom-20 -right-20 w-80 h-80 bg-on-primary/10 rounded-full blur-3xl"></div>
+<div class="absolute -top-20 -left-20 w-64 h-64 bg-on-primary/5 rounded-full blur-3xl"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-sm mb-xl">
+<span class="material-symbols-outlined text-[32px] font-bold" data-icon="router">router</span>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tight">RTRWNet</h1>
+</div>
+<div class="mt-xl">
+<h2 class="font-display-lg text-display-lg leading-tight mb-md">Solusi Manajemen ISP Modern</h2>
+<p class="font-body-lg text-body-lg text-on-primary/80 max-w-md">
+                        Platform terintegrasi untuk mengelola jaringan, pelanggan, dan penagihan dengan keandalan sistem tingkat korporat.
+                    </p>
+</div>
+</div>
+<div class="relative z-10 grid grid-cols-2 gap-lg mt-auto">
+<div class="flex flex-col gap-xs">
+<span class="font-headline-sm text-headline-sm font-bold">99.9%</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider opacity-70">Uptime System</span>
+</div>
+<div class="flex flex-col gap-xs">
+<span class="font-headline-sm text-headline-sm font-bold">Secure</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider opacity-70">Data Encryption</span>
+</div>
+</div>
+</div>
+<!-- Right Side: Login Card -->
+<div class="flex flex-col justify-center p-gutter md:p-xl bg-surface-container-lowest">
+<div class="max-w-[400px] mx-auto w-full">
+<!-- Branding for Mobile -->
+<div class="flex md:hidden items-center gap-sm mb-lg justify-center">
+<span class="material-symbols-outlined text-primary text-[28px]" data-icon="router">router</span>
+<span class="font-headline-sm text-headline-sm font-bold text-primary">RTRWNet</span>
+</div>
+<div class="mb-xl text-center md:text-left">
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface">Selamat Datang Kembali</h3>
+<p class="font-body-md text-body-md text-secondary mt-xs">Silakan masuk ke akun Anda</p>
+</div>
+<form action="#" class="space-y-lg" method="POST" onsubmit="return false">
+<!-- Username/Email Field -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant flex items-center gap-xs" for="identifier">
+                            Username atau Email
+                        </label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors" data-icon="person">person</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="identifier" name="identifier" placeholder="Masukkan username/email" type="text"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-xs">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-on-surface-variant" for="password">Kata Sandi</label>
+<a class="font-label-sm text-label-sm text-primary hover:underline" href="#">Lupa Sandi?</a>
+</div>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors" data-icon="lock">lock</span>
+<input class="w-full pl-10 pr-12 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="password" name="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface-variant" type="button">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<!-- Options -->
+<div class="flex items-center">
+<input class="w-4 h-4 text-primary bg-surface-container border-outline-variant rounded focus:ring-primary" id="remember" name="remember" type="checkbox"/>
+<label class="ml-2 font-body-sm text-body-sm text-on-surface-variant" for="remember">Ingat saya</label>
+</div>
+<!-- Primary CTA -->
+<button class="w-full py-3 bg-primary hover:bg-surface-tint text-on-primary font-label-md text-label-md rounded-lg shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex items-center justify-center gap-sm" type="submit">
+                        Masuk Sekarang
+                        <span class="material-symbols-outlined text-[20px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Divider -->
+<div class="relative flex items-center py-sm">
+<div class="flex-grow border-t border-outline-variant"></div>
+<span class="flex-shrink mx-4 font-label-sm text-label-sm text-outline">Atau masuk dengan</span>
+<div class="flex-grow border-t border-outline-variant"></div>
+</div>
+<!-- Google Login Button -->
+<button class="w-full py-3 bg-surface-container-lowest border border-outline-variant hover:bg-surface-container-low text-on-surface font-label-md text-label-md rounded-lg transition-all flex items-center justify-center gap-sm" type="button">
+<svg class="w-5 h-5" viewbox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+                        Masuk dengan Google
+                    </button>
+</form>
+<!-- Multi-tenant notice -->
+<div class="mt-xl flex items-start gap-sm p-md bg-surface-container rounded-lg border border-outline-variant/30">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5" data-icon="info">info</span>
+<p class="font-body-sm text-body-sm text-on-secondary-fixed-variant leading-tight">
+<strong class="font-semibold block">Mendukung multi-tenant session</strong>
+                        Anda dapat beralih antar instansi ISP setelah berhasil masuk ke dashboard pusat.
+                    </p>
+</div>
+<div class="mt-lg text-center">
+<p class="font-body-sm text-body-sm text-secondary">
+                        Butuh bantuan? <a class="text-primary font-semibold hover:underline" href="#">Hubungi Support</a>
+</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Copyright -->
+<footer class="absolute bottom-6 w-full text-center px-gutter z-10 pointer-events-none md:pointer-events-auto">
+<p class="font-label-sm text-label-sm text-secondary">
+            © 2024 RTRWNet ISP Management. All rights reserved. 
+            <span class="mx-2 hidden md:inline">|</span>
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<span class="mx-2 hidden md:inline">|</span>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+</p>
+</footer>
+<!-- Micro-interactions Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = document.querySelectorAll('input');
+            
+            inputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    input.parentElement.parentElement.classList.add('scale-[1.01]');
+                });
+                input.addEventListener('blur', () => {
+                    input.parentElement.parentElement.classList.remove('scale-[1.01]');
+                });
+            });
+
+            // Toggle Password Visibility
+            const togglePass = document.querySelector('button[type="button"] span[data-icon="visibility"]');
+            const passInput = document.getElementById('password');
+            
+            if (togglePass && passInput) {
+                togglePass.parentElement.addEventListener('click', () => {
+                    const isPass = passInput.type === 'password';
+                    passInput.type = isPass ? 'text' : 'password';
+                    togglePass.textContent = isPass ? 'visibility_off' : 'visibility';
+                });
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,43 @@
+.env
+.env.*
+!.env.example
+
+# Local editor/deployment settings
+.vscode/
+.claude/
+push.md
+
+# Runtime storage
+storage/app_settings.json
+storage/cache/*
+!storage/cache/.gitkeep
+storage/cookies/
+storage/logs/*
+!storage/logs/.gitkeep
+storage/profile-photos/
+storage/sessions/
+
+# Cookies, sessions, logs, and backups
+*.cookies
+*.log
+*.bak
+*.backup
+database/rt_rw_net (1).sql
+*.sql.gz
+*.zip
+*.tar
+*.tgz
+
+# Dependency/build output
+node_modules/
+mobile-app/node_modules/
+mobile-app/android/.gradle/
+mobile-app/android/app/build/
+mobile-app/ios/Pods/
+mobile-app/coverage/
+
+# Local platform secrets
+*.keystore
+*.jks
+mobile-app/android/local.properties
+mobile-app/ios/.xcode.env.local

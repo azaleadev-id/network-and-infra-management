@@ -1,0 +1,487 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>User Management - RTRWNet</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        
+        /* Slide-in Animation */
+        #detail-panel {
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #detail-panel.open {
+            transform: translateX(0);
+        }
+        
+        /* Table Zebra & Hover */
+        .user-table tr:hover {
+            background-color: #f8faff;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Tailwind Config Injection -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#003ea8",
+                        "tertiary": "#943700",
+                        "primary": "#004ac6",
+                        "on-background": "#191b23",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e1e2ed",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "outline-variant": "#c3c6d7",
+                        "surface-bright": "#faf8ff",
+                        "surface-container-high": "#e7e7f3",
+                        "outline": "#737686",
+                        "on-primary-container": "#eeefff",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#434655",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "surface-dim": "#d9d9e5",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "tertiary-fixed": "#ffdbcd",
+                        "primary-container": "#2563eb",
+                        "secondary-container": "#d0e1fb",
+                        "on-primary-fixed": "#00174b",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-secondary-fixed": "#0b1c30",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#bc4800",
+                        "surface-variant": "#e1e2ed",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#ededf9",
+                        "on-surface": "#191b23",
+                        "secondary-fixed": "#d3e4fe",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#ffede6",
+                        "on-secondary-container": "#54647a",
+                        "background": "#faf8ff",
+                        "primary-fixed": "#dbe1ff",
+                        "inverse-primary": "#b4c5ff",
+                        "inverse-on-surface": "#f0f0fb",
+                        "surface-tint": "#0053db",
+                        "inverse-surface": "#2e3039",
+                        "surface-container-low": "#f3f3fe",
+                        "secondary": "#505f76",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#faf8ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin-mobile": "16px",
+                        "gutter": "16px",
+                        "container-margin-desktop": "32px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<!-- Side Navigation Shell -->
+<aside class="fixed left-0 top-0 bottom-0 flex flex-col gap-sm py-lg px-md z-40 bg-surface-container-lowest dark:bg-surface-dim border-r border-outline-variant dark:border-outline w-[280px]">
+<div class="px-4 mb-xl">
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">RTRWNet</h1>
+<p class="text-body-sm text-on-surface-variant opacity-70">Network Admin</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<!-- Navigation Items Mapping -->
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-lg font-bold opacity-90 transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-md text-label-md">Users</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md">Billing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="font-label-md text-label-md">Monitoring</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="block">block</span>
+<span class="font-label-md text-label-md">Isolir</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors mt-auto" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-xl p-4 bg-primary-container rounded-xl text-on-primary-container">
+<p class="text-label-sm mb-2 opacity-90 uppercase tracking-wider">System Health</p>
+<div class="flex items-center gap-2 mb-3">
+<div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+<span class="text-body-sm font-semibold">99.8% Uptime</span>
+</div>
+<button class="w-full py-2 bg-white text-primary font-label-md rounded-lg hover:bg-opacity-90 transition-all">Support Ticket</button>
+</div>
+</aside>
+<!-- Top Navigation Shell -->
+<header class="fixed top-0 right-0 left-[280px] h-16 flex justify-between items-center px-lg z-30 bg-surface dark:bg-background border-b border-outline-variant dark:border-outline">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-body-sm focus:ring-2 focus:ring-primary" placeholder="Cari username atau IP address..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:bg-surface-container dark:hover:bg-surface-variant rounded-full p-2 transition-colors relative">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="hover:bg-surface-container dark:hover:bg-surface-variant rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="help">help</span>
+</button>
+<div class="h-8 w-px bg-outline-variant mx-2"></div>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-outline-variant hover:bg-surface-container transition-colors">
+<span class="text-label-md">Quick Actions</span>
+<span class="material-symbols-outlined text-[20px]" data-icon="expand_more">expand_more</span>
+</button>
+<img class="w-9 h-9 rounded-full object-cover border border-outline-variant" data-alt="A professional headshot of a network administrator in his late 30s wearing a technical fleece jacket. He has a focused expression, set against a blurred background of a modern clean data center with blue glowing server racks. The lighting is crisp and cool, emphasizing a high-tech corporate environment with light mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1X-3ve45ctUIs6ZeEAHoES7VRiv3fqfJ2RyAgJNXVUkScBjIWwfP87iLO-f3t6kig6OCw8s049ewFMvaFtEBqZ1yL2KoUZ3CCzfV0whmF3rZCRtGRJtFPscj_AIC5FEAfDc-yTb64-8ihFw-qrmR7M6-B7OMZ1QtGUaCHcI6wVf6NF3eOvMB8fd1-T81hp6pvb-IY41e6KUihpFZ45gmyF2CKQdPWo9uRbojURbFy1TKzdgUfuamYlDD10pKxubADl_9basgN2tM">
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-[280px] mt-16 p-lg">
+<!-- Dashboard Header / Toolbar -->
+<div class="flex flex-col gap-6 mb-lg">
+<div class="flex justify-between items-end">
+<div>
+<h2 class="text-display-lg-mobile md:text-headline-md font-headline-md text-on-surface">Manajemen Pengguna</h2>
+<p class="text-body-md text-on-surface-variant">Kelola seluruh pelanggan RTRWNet dalam satu tampilan terpusat.</p>
+</div>
+<button class="bg-primary text-white px-6 py-2.5 rounded-lg flex items-center gap-2 hover:bg-on-primary-fixed-variant transition-all shadow-sm">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+<span class="font-label-md uppercase tracking-widest">TAMBAH PENGGUNA</span>
+</button>
+</div>
+<!-- Filters Bar -->
+<div class="bg-white border border-outline-variant rounded-xl p-md flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="flex bg-surface-container p-1 rounded-lg"><button class="px-4 py-1.5 rounded-md bg-white shadow-sm text-label-md text-primary font-bold">Semua</button>
+<button class="px-4 py-1.5 rounded-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors">Online</button>
+<button class="px-4 py-1.5 rounded-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors">Offline</button>
+<button class="px-4 py-1.5 rounded-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors">Disabled</button></div>
+<div class="h-6 w-px bg-outline-variant"></div>
+<select class="bg-transparent border-none text-label-md focus:ring-0 cursor-pointer">
+<option>Semua Paket</option>
+<option>Lite 10Mbps</option>
+<option>Pro 50Mbps</option>
+<option>Gamer 100Mbps</option>
+</select>
+</div>
+<div class="text-body-sm text-on-surface-variant">
+                    Menampilkan <span class="font-bold text-on-surface">248</span> dari 1,204 pengguna
+                </div>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden">
+<table class="w-full text-left user-table">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr><th class="px-6 py-4 text-label-sm text-secondary uppercase tracking-widest">Pengguna</th>
+<th class="px-6 py-4 text-label-sm text-secondary uppercase tracking-widest">Username</th>
+<th class="px-6 py-4 text-label-sm text-secondary uppercase tracking-widest">Status</th>
+<th class="px-6 py-4 text-label-sm text-secondary uppercase tracking-widest">Paket</th>
+<th class="px-6 py-4 text-label-sm text-secondary uppercase tracking-widest">Terakhir Aktif</th>
+<th class="px-6 py-4 text-label-sm text-secondary uppercase tracking-widest text-right">Aksi</th></tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row: Budi Santoso -->
+<tr class="cursor-pointer transition-colors" onclick="toggleDetailPanel()">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full border border-outline-variant" data-alt="A portrait of a friendly Indonesian man in his early 40s, Budi Santoso, with a clean professional appearance. The image is a crisp profile shot with a minimalist light grey background, featuring soft studio lighting consistent with a corporate employee directory. The visual style is clean, modern, and high-fidelity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD34tOgH12Rr0YJK5WHy6sK19ZqgpgVMRiKKICndq06jIvVg5K5X5iikUAn2_AcGoIv8x8dtgg3DyG-Zv2AtWtHxK9QPyj74oKxGhqYuRjiISvLedNNGucPMfXOWKA1gSuhTaBM3no33OBJuFfxAN34rQdQFso9gfGygU07cXEfNG5gElKFMN05dilvWVBUAOKvkCli3Nck4cAx5zm0R6aaJVj6VDXu60Wqy7C2gfXgccS0Qpd2IZ0w_cVLFCBwsvqTVMRDLH207KU">
+<div>
+<p class="font-bold text-on-surface text-body-md">Budi Santoso</p>
+<p class="text-body-sm text-on-surface-variant">budi.s@email.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-mono text-body-sm text-secondary">budisan88</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700 border border-green-200">
+<span class="w-1.5 h-1.5 rounded-full bg-green-600"></span>
+                                Online
+                            </span>
+</td>
+<td class="px-6 py-4">
+<p class="text-body-sm font-semibold">Pro 50Mbps</p>
+<p class="text-[11px] text-on-surface-variant uppercase tracking-tighter">FUP: 450GB / 1TB</p>
+</td>
+<td class="px-6 py-4 text-body-sm text-on-surface-variant">Baru saja</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-1"><button class="p-2 hover:bg-surface-container rounded-lg text-primary" title="Edit"><span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span></button>
+<button class="p-2 hover:bg-surface-container rounded-lg text-secondary" title="Info"><span class="material-symbols-outlined text-[20px]" data-icon="info">info</span></button>
+<button class="p-2 hover:bg-surface-container rounded-lg text-error" title="Nonaktifkan"><span class="material-symbols-outlined text-[20px]" data-icon="block">block</span></button></div>
+</td>
+</tr>
+<!-- Row: Offline User -->
+<tr>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3 opacity-80">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-secondary-container">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+<div>
+<p class="font-bold text-on-surface text-body-md">Siti Aminah</p>
+<p class="text-body-sm text-on-surface-variant">siti.m@email.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-mono text-body-sm text-secondary">sitiamin_92</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold border border-dashed border-outline text-outline bg-surface-container">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                Offline
+                            </span>
+</td>
+<td class="px-6 py-4">
+<p class="text-body-sm font-semibold">Lite 10Mbps</p>
+<p class="text-[11px] text-on-surface-variant uppercase tracking-tighter">UNLIMITED</p>
+</td>
+<td class="px-6 py-4 text-body-sm text-on-surface-variant">2 jam yang lalu</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-1">
+<button class="p-2 hover:bg-surface-container rounded-lg text-primary" title="Edit"><span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span></button>
+<button class="p-2 hover:bg-surface-container rounded-lg text-secondary" title="Detail"><span class="material-symbols-outlined text-[20px]" data-icon="info">info</span></button>
+<button class="p-2 hover:bg-surface-container rounded-lg text-error" title="Disable"><span class="material-symbols-outlined text-[20px]" data-icon="block">block</span></button>
+</div>
+</td>
+</tr>
+<!-- Row: Disabled User -->
+<tr>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3 grayscale opacity-60">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="person_off">person_off</span>
+</div>
+<div>
+<p class="font-bold text-on-surface text-body-md">Rian Pratama</p>
+<p class="text-body-sm text-on-surface-variant">rianp@email.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-mono text-body-sm text-secondary">rian.prat</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-error text-white">
+<span class="material-symbols-outlined text-[12px]" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+                                Disabled
+                            </span>
+</td>
+<td class="px-6 py-4">
+<p class="text-body-sm font-semibold text-error">Isolir Otomatis</p>
+<p class="text-[11px] text-error uppercase tracking-tighter">BELUM BAYAR</p>
+</td>
+<td class="px-6 py-4 text-body-sm text-on-surface-variant">5 hari yang lalu</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-1">
+<button class="p-2 hover:bg-surface-container rounded-lg text-primary" title="Edit"><span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span></button>
+<button class="p-2 hover:bg-surface-container rounded-lg text-secondary" title="Detail"><span class="material-symbols-outlined text-[20px]" data-icon="info">info</span></button>
+<button class="p-2 hover:bg-surface-container rounded-lg text-green-600" title="Enable"><span class="material-symbols-outlined text-[20px]" data-icon="check_circle">check_circle</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination -->
+<div class="px-6 py-4 bg-surface-container-low flex items-center justify-between border-t border-outline-variant">
+<p class="text-body-sm text-on-surface-variant">Halaman 1 dari 12</p>
+<div class="flex gap-2">
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container transition-colors disabled:opacity-40" disabled="">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="px-3 py-1 bg-primary text-white rounded-lg text-label-md font-bold">1</button>
+<button class="px-3 py-1 hover:bg-surface-container rounded-lg text-label-md">2</button>
+<button class="px-3 py-1 hover:bg-surface-container rounded-lg text-label-md">3</button>
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Detail Panel: Budi Santoso (Slide-in) -->
+<div class="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 hidden" id="detail-overlay" onclick="toggleDetailPanel()"></div>
+<aside class="fixed top-0 right-0 bottom-0 w-[480px] bg-white z-[60] shadow-2xl flex flex-col" id="detail-panel">
+<!-- Panel Header -->
+<div class="p-lg border-b border-outline-variant flex items-start justify-between bg-surface-container-low">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img class="w-16 h-16 rounded-2xl border-2 border-white shadow-md" data-alt="A portrait of a friendly Indonesian man in his early 40s, Budi Santoso, with a clean professional appearance. The image is a crisp profile shot with a minimalist light grey background, featuring soft studio lighting consistent with a corporate employee directory. The visual style is clean, modern, and high-fidelity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc05V829cM8LYkfFn6mE-wmlQ1g3rhya23TJyIque6LucibdvV_CNK8ECy8isKR8VkJgPPbDFzU0SpoEUKRvATQHviaG0VDQhJt7WUx57veUxYvFnXhimqNI7AAvHqxqQnTyttzxAeWYAL5PdvTgWAKzrg_fSfVDm9b634W7aMmo2JFs_vZkyb7_xrW_RpjS-mMGIEiTZZtFPYfgX-XeXXd-IC3X1mEccxWOMZuaeIUQe7H3ZRJ79_15tE3syLNrroPHM5oZjAZzM">
+<div class="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 border-2 border-white rounded-full"></div>
+</div>
+<div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Budi Santoso</h3>
+<p class="text-body-sm text-on-surface-variant">User ID: #ISP-882190</p>
+</div>
+</div>
+<button class="p-2 hover:bg-surface-container-highest rounded-full transition-colors" onclick="toggleDetailPanel()">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<!-- Detail Tabs -->
+<div class="flex border-b border-outline-variant">
+<button class="flex-1 py-4 text-label-md font-bold text-primary border-b-2 border-primary">Profil</button>
+<button class="flex-1 py-4 text-label-md text-on-surface-variant hover:text-on-surface transition-colors">Koneksi</button>
+<button class="flex-1 py-4 text-label-md text-on-surface-variant hover:text-on-surface transition-colors">Tagihan</button>
+<button class="flex-1 py-4 text-label-md text-on-surface-variant hover:text-on-surface transition-colors">Aktivitas</button>
+</div>
+<!-- Panel Content -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-lg flex flex-col gap-8">
+<!-- User Info Section -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h4 class="text-label-sm uppercase tracking-widest text-secondary font-bold">Informasi Dasar</h4>
+<button class="text-primary text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="edit">edit</span> Edit
+                    </button>
+</div>
+<div class="grid grid-cols-2 gap-y-4 text-body-sm">
+<div>
+<p class="text-on-surface-variant mb-1">Username</p>
+<p class="font-semibold">budisan88</p>
+</div>
+<div>
+<p class="text-on-surface-variant mb-1">IP Address</p>
+<p class="font-mono text-primary font-semibold">192.168.1.45</p>
+</div>
+<div>
+<p class="text-on-surface-variant mb-1">No. WhatsApp</p>
+<p class="font-semibold">+62 812-3456-7890</p>
+</div>
+<div>
+<p class="text-on-surface-variant mb-1">Alamat</p>
+<p class="font-semibold">Blok C2 No. 12, Cluster Anggrek</p>
+</div>
+</div>
+</section>
+<!-- Network Status Card -->
+<section class="bg-surface-container-low rounded-xl p-md border border-outline-variant">
+<h4 class="text-label-sm uppercase tracking-widest text-secondary font-bold mb-4">Koneksi Aktif</h4>
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="p-3 bg-secondary-container rounded-lg text-primary">
+<span class="material-symbols-outlined" data-icon="router">router</span>
+</div>
+<div>
+<p class="text-body-md font-bold">Pro 50Mbps</p>
+<p class="text-body-sm text-on-surface-variant">Fiber-to-the-Home</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-headline-sm font-bold text-green-600">AKTIF</p>
+<p class="text-body-sm text-on-surface-variant">Sejak 12 Jan 2024</p>
+</div>
+</div>
+<!-- Mini Traffic Graph Placeholder -->
+<div class="h-20 w-full bg-white rounded-lg border border-outline-variant flex items-end gap-1 px-2 pb-1 overflow-hidden bg-surface-container-lowest">
+<div class="w-full bg-primary/20 h-[40%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[60%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[45%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[30%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[55%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[75%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[50%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[65%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[90%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[40%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[30%] rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-[45%] rounded-t-sm"></div>
+</div>
+<div class="flex justify-between mt-2 px-1">
+<span class="text-[10px] text-on-surface-variant">Upload: 1.2 MB/s</span>
+<span class="text-[10px] text-on-surface-variant">Download: 12.5 MB/s</span>
+</div>
+</section>
+<!-- Quick Actions -->
+<section class="mt-auto pt-lg border-t border-outline-variant grid grid-cols-2 gap-3"><button class="flex items-center justify-center gap-2 py-3 bg-surface-container-highest rounded-lg text-on-surface font-label-md hover:bg-outline-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="lock_reset">lock_reset</span>
+Reset Password
+</button>
+<button class="flex items-center justify-center gap-2 py-3 bg-surface-container-highest rounded-lg text-on-surface font-label-md hover:bg-outline-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="history">history</span>
+Riwayat Login
+</button>
+<button class="col-span-2 flex items-center justify-center gap-2 py-3 bg-error text-white rounded-lg font-label-md hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="block">block</span>
+Nonaktifkan Akun
+</button></section>
+</div>
+</aside>
+<script>
+        function toggleDetailPanel() {
+            const panel = document.getElementById('detail-panel');
+            const overlay = document.getElementById('detail-overlay');
+            const isOpen = panel.classList.contains('open');
+            
+            if (isOpen) {
+                panel.classList.remove('open');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            } else {
+                overlay.classList.remove('hidden');
+                setTimeout(() => panel.classList.add('open'), 10);
+            }
+        }
+    </script>
+
+
+</body></html>

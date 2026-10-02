@@ -1,0 +1,497 @@
+<!DOCTYPE html><html class="light" lang="id"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Isolir Configuration - RTRWNet</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#191b23",
+                        "surface-container": "#ededf9",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#2e3039",
+                        "primary": "#004ac6",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "tertiary": "#943700",
+                        "surface-variant": "#e1e2ed",
+                        "primary-fixed": "#dbe1ff",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#360f00",
+                        "background": "#faf8ff",
+                        "on-primary-container": "#eeefff",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f0f0fb",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "outline-variant": "#c3c6d7",
+                        "on-surface-variant": "#434655",
+                        "surface-container-low": "#f3f3fe",
+                        "tertiary-container": "#bc4800",
+                        "surface-dim": "#d9d9e5",
+                        "surface": "#faf8ff",
+                        "on-primary-fixed": "#00174b",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#e7e7f3",
+                        "tertiary-fixed": "#ffdbcd",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-background": "#191b23",
+                        "primary-container": "#2563eb",
+                        "on-tertiary-container": "#ffede6",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-secondary-container": "#54647a",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "surface-bright": "#faf8ff",
+                        "secondary": "#505f76",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "surface-container-highest": "#e1e2ed",
+                        "secondary-container": "#d0e1fb",
+                        "inverse-primary": "#b4c5ff",
+                        "error-container": "#ffdad6",
+                        "outline": "#737686"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "32px",
+                        "sm": "8px",
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "container-margin-mobile": "16px",
+                        "lg": "24px",
+                        "container-margin-desktop": "32px",
+                        "xs": "4px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .active-nav { font-variation-settings: 'FILL' 1 !important; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 bottom-0 flex flex-col gap-sm py-lg px-md z-40 bg-surface-container-lowest border-r border-outline-variant w-[280px] hidden md:flex">
+<div class="mb-lg px-4">
+<h1 class="text-headline-md font-headline-md font-bold text-primary">RTRWNet</h1>
+<p class="text-label-sm font-label-sm text-secondary">Network Admin</p>
+</div>
+<nav class="flex flex-col gap-1 grow">
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-label-md font-label-md">Users</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-label-md font-label-md">Billing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="text-label-md font-label-md">Monitoring</span>
+</a>
+<!-- Active Tab: Isolir -->
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold" href="#">
+<span class="material-symbols-outlined active-nav" data-icon="block" style="font-variation-settings: 'FILL' 1;">block</span>
+<span class="text-label-md font-label-md">Isolir</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="text-label-md font-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-2">
+<button class="w-full py-3 bg-primary text-on-primary rounded-lg font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+<span class="text-label-md">Support Ticket</span>
+</button>
+</div>
+</aside>
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 right-0 left-0 md:left-[280px] h-16 flex justify-between items-center px-lg z-30 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-md grow max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-body-sm focus:ring-2 focus:ring-primary" placeholder="Search subscribers or tickets..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="hover:bg-surface-container-high rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined text-secondary" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-surface-container-high rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined text-secondary" data-icon="help">help</span>
+</button>
+<div class="h-8 w-px bg-outline-variant mx-2"></div>
+<div class="flex items-center gap-2 cursor-pointer group">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Admin Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwHsJGIafMJUBdrMDl3CkvQ0MfH1fE_LbspblMq_xoF5oZ0j1eV1PcRtBuKRLylxRoNvSUJUu0nojq6jZthBMvbm9ZPRs5FVGykoN4mzALQy1ExNZqSa0S9EUj4vSPbgWjJ8oDDY1Yaa0DlkHXORI-xIc2Tx4-DRozDqZ7_hLGCG5vGrI0wKxs7UFsycc-UvWjvw9Q_tE9TjwO5VQJMQXZRPJK609zXm9I6nMcpdp-5i6jG270K_4Y_aiwd2_siA1nCE4JP349Wxw">
+</div>
+<span class="text-label-md font-label-md hidden sm:block">Admin ISP</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-12 px-container-margin-mobile md:px-container-margin-desktop md:ml-[280px]">
+<!-- Header Section -->
+<div class="mb-lg flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface mb-xs">Konfigurasi Isolir MikroTik</h2>
+<p class="text-body-md text-on-surface-variant">Kelola otomatisasi pemutusan akses pelanggan yang menunggak melalui integrasi profile MikroTik.</p>
+</div>
+<div class="flex gap-2">
+<button class="bg-surface-container-high text-on-surface px-4 py-2 rounded-lg font-bold text-label-md flex items-center gap-2 hover:bg-surface-variant transition-all">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                    Lihat Log MikroTik
+                </button>
+</div>
+</div>
+<!-- Alert: Error Logging Section -->
+<div class="mb-lg bg-error-container text-on-error-container p-md rounded-xl border border-error/20 flex items-start gap-3">
+<span class="material-symbols-outlined text-error" data-icon="error">error</span>
+<div class="grow">
+<p class="text-label-md font-bold">Terdeteksi Gagal Eksekusi (2)</p>
+<p class="text-body-sm opacity-90">MikroTik gagal menerapkan profile isolir untuk 2 pelanggan karena masalah timeout API. <a class="underline font-bold" href="#">Lihat Detail</a></p>
+</div>
+<button class="p-1 hover:bg-black/5 rounded"><span class="material-symbols-outlined text-body-sm" data-icon="close">close</span></button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Left Column: Config Form & Status -->
+<div class="lg:col-span-2 space-y-lg">
+<!-- Form Konfigurasi Card -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg overflow-hidden">
+<div class="flex items-center gap-2 mb-lg border-b border-outline-variant pb-md">
+<span class="material-symbols-outlined text-primary" data-icon="settings_ethernet">settings_ethernet</span>
+<h3 class="text-headline-sm font-headline-sm">Form Konfigurasi Profil Isolir</h3>
+</div>
+<form class="space-y-md">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="space-y-xs">
+<label class="text-label-md font-label-md text-on-surface-variant">Profile Name</label>
+<input class="w-full border border-outline-variant rounded-lg p-3 text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all" type="text" value="ISOLIR">
+<p class="text-label-sm text-secondary">Nama PPP profile yang akan dibuat/digunakan di MikroTik.</p>
+</div>
+<div class="space-y-xs">
+<label class="text-label-md font-label-md text-on-surface-variant">Speed Limit (Rate Limit)</label>
+<input class="w-full border border-outline-variant rounded-lg p-3 text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all" type="text" value="64k/64k">
+<p class="text-label-sm text-secondary">Gunakan format MikroTik (contoh: 128k/128k atau 1M/1M).</p>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="text-label-md font-label-md text-on-surface-variant">Comment</label>
+<textarea class="w-full border border-outline-variant rounded-lg p-3 text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all" placeholder="Catatan untuk profile MikroTik..." rows="3">Profile isolir otomatis oleh RTRWNet Billing System.</textarea>
+</div>
+<div class="flex flex-wrap gap-md pt-md">
+<button class="bg-primary text-on-primary px-lg py-3 rounded-lg font-bold flex items-center gap-2 hover:shadow-lg transition-all active:scale-[0.98]" type="submit">
+<span class="material-symbols-outlined" data-icon="save">save</span>
+                                Simpan Konfigurasi
+                            </button>
+<button class="border border-outline-variant text-on-surface px-lg py-3 rounded-lg font-bold flex items-center gap-2 hover:bg-surface-container transition-all" type="button">
+<span class="material-symbols-outlined" data-icon="router">router</span>
+                                Uji Koneksi MikroTik
+                            </button>
+</div>
+</form>
+</section>
+<!-- Status Isolir Pengguna Table Card -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h3 class="text-headline-sm font-headline-sm">Status Isolir Pengguna</h3>
+<div class="flex gap-4">
+<button class="text-primary font-bold text-label-md hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+                                Sync Data
+                            </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high border-b border-outline-variant">
+<th class="px-lg py-4 text-label-sm text-secondary uppercase tracking-wider">Name</th>
+<th class="px-lg py-4 text-label-sm text-secondary uppercase tracking-wider">Linked Bill</th>
+<th class="px-lg py-4 text-label-sm text-secondary uppercase tracking-wider">Status</th>
+<th class="px-lg py-4 text-label-sm text-secondary uppercase tracking-wider">Previous Profile</th>
+<th class="px-lg py-4 text-label-sm text-secondary uppercase tracking-wider">Last Action</th>
+<th class="px-lg py-4 text-label-sm text-secondary uppercase tracking-wider">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-4">
+<div class="flex flex-col">
+<span class="text-body-md font-bold text-on-surface">Budi Santoso</span>
+<span class="text-label-sm text-on-surface-variant">ID: NET-10293</span>
+</div>
+</td>
+<td class="px-lg py-4">
+<div class="flex flex-col">
+<span class="text-body-sm font-medium text-primary">#INV/202310/001</span>
+<span class="text-label-sm text-secondary">Rp 150.000 (Due: 10 Okt)</span>
+</div>
+</td>
+<td class="px-lg py-4">
+<span class="bg-red-100 text-red-800 text-label-sm font-bold px-3 py-1 rounded-full flex items-center w-fit gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse"></span>Terisolir
+                                        </span>
+</td>
+<td class="px-lg py-4 text-body-sm">Premium 20Mbps</td>
+<td class="px-lg py-4 text-label-sm text-secondary">2 hours ago</td>
+<td class="px-lg py-4">
+<button class="text-primary hover:bg-primary/10 p-2 rounded-lg transition-colors" title="Pulihkan Profil">
+<span class="material-symbols-outlined" data-icon="settings_backup_restore">settings_backup_restore</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-4">
+<div class="flex flex-col">
+<span class="text-body-md font-bold text-on-surface">Ani Wijaya</span>
+<span class="text-label-sm text-on-surface-variant">ID: NET-10455</span>
+</div>
+</td>
+<td class="px-lg py-4">
+<div class="flex flex-col">
+<span class="text-body-sm font-medium text-primary">#INV/202310/012</span>
+<span class="text-label-sm text-secondary">Rp 100.000 (Due: 12 Okt)</span>
+</div>
+</td>
+<td class="px-lg py-4">
+<span class="bg-orange-100 text-orange-800 text-label-sm font-bold px-3 py-1 rounded-full flex items-center w-fit gap-1">Menunggu</span>
+</td>
+<td class="px-lg py-4 text-body-sm">Standard 10Mbps</td>
+<td class="px-lg py-4 text-label-sm text-secondary">1 day ago</td>
+<td class="px-lg py-4">
+<button class="text-error hover:bg-error/10 p-2 rounded-lg transition-colors" title="Terapkan Isolir">
+<span class="material-symbols-outlined" data-icon="block">block</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-4">
+<div class="flex flex-col">
+<span class="text-body-md font-bold text-on-surface">Rizky Ardiansyah</span>
+<span class="text-label-sm text-on-surface-variant">ID: NET-10882</span>
+</div>
+</td>
+<td class="px-lg py-4">
+<div class="flex flex-col">
+<span class="text-body-sm font-medium text-primary">#INV/202310/015</span>
+<span class="text-label-sm text-secondary">Rp 250.000 (Due: 15 Okt)</span>
+</div>
+</td>
+<td class="px-lg py-4">
+<span class="bg-error-container text-on-error-container text-label-sm font-bold px-3 py-1 rounded-full flex items-center w-fit gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="warning">warning</span>Gagal
+                                        </span>
+</td>
+<td class="px-lg py-4 text-body-sm">Business 50Mbps</td>
+<td class="px-lg py-4 text-label-sm text-secondary">10 mins ago</td>
+<td class="px-lg py-4">
+<button class="text-primary hover:bg-primary/10 p-2 rounded-lg transition-colors" title="Coba Lagi">
+<span class="material-symbols-outlined" data-icon="replay">replay</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-lg py-4">
+<div class="flex flex-col">
+<span class="text-body-md font-bold text-on-surface">Dewi Lestari</span>
+<span class="text-label-sm text-on-surface-variant">ID: NET-11002</span>
+</div>
+</td>
+<td class="px-lg py-4 text-body-sm text-on-surface-variant">-</td>
+<td class="px-lg py-4">
+<span class="bg-green-100 text-green-800 text-label-sm font-bold px-3 py-1 rounded-full flex items-center w-fit gap-1">Dipulihkan</span>
+</td>
+<td class="px-lg py-4 text-body-sm">Business 50Mbps</td>
+<td class="px-lg py-4 text-label-sm text-secondary">5 mins ago</td>
+<td class="px-lg py-4">
+<button class="text-secondary opacity-50 cursor-not-allowed p-2 rounded-lg" disabled="">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-lg py-md border-t border-outline-variant flex flex-wrap gap-4 justify-between items-center bg-surface-container-lowest">
+<div class="flex gap-2">
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-bold text-label-sm flex items-center gap-2 hover:shadow-md transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="play_arrow">play_arrow</span>
+                                Terapkan Isolir Sekarang
+                            </button>
+<button class="bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg font-bold text-label-sm flex items-center gap-2 hover:bg-secondary-fixed transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="restore">restore</span>
+                                Pulihkan Profil Sekarang
+                            </button>
+</div>
+<div class="flex gap-2 items-center">
+<span class="text-label-sm text-secondary">Page 1 of 4</span>
+<button class="p-1 rounded border border-outline-variant hover:bg-surface-container transition-colors"><span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span></button>
+<button class="p-1 rounded border border-outline-variant hover:bg-surface-container transition-colors"><span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: MicroTik Connection Status -->
+<div class="space-y-lg">
+<!-- Connection Status Card -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col items-center text-center"><div class="w-16 h-16 bg-green-50 text-green-600 rounded-full flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-4xl" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm mb-xs">Status Koneksi MikroTik</h3>
+<div class="bg-green-100 text-green-800 text-label-md font-bold px-4 py-1 rounded-full mb-lg">
+                        Terhubung
+                    </div>
+<div class="w-full space-y-sm text-left">
+<div class="flex justify-between items-center p-md bg-surface-container rounded-lg">
+<span class="text-label-sm text-on-surface-variant font-medium">Host Address</span>
+<span class="text-body-sm font-bold">192.168.88.1</span>
+</div>
+<div class="flex justify-between items-center p-md bg-surface-container rounded-lg">
+<span class="text-label-sm text-on-surface-variant font-medium">Port</span>
+<span class="text-body-sm font-bold">8728 (SSL)</span>
+</div>
+<div class="flex justify-between items-center p-md bg-surface-container rounded-lg">
+<span class="text-label-sm text-on-surface-variant font-medium">Transport</span>
+<span class="text-body-sm font-bold">Socket/REST (Auto)</span>
+</div>
+<div class="flex justify-between items-center p-md bg-surface-container rounded-lg">
+<span class="text-label-sm text-on-surface-variant font-medium">OS Version</span>
+<span class="text-body-sm font-bold">RouterOS v7.12</span>
+</div>
+<div class="flex justify-between items-center p-md bg-surface-container rounded-lg">
+<span class="text-label-sm text-on-surface-variant font-medium">Profile Isolir Detected</span>
+<span class="text-body-sm font-bold text-green-600">ISOLIR Found</span>
+</div>
+</div>
+<div class="w-full flex flex-col gap-2 mt-lg">
+<button class="w-full py-2 bg-primary text-on-primary rounded-lg font-bold text-label-md flex items-center justify-center gap-2 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-md" data-icon="add_circle">add_circle</span>
+                            Buat Profile Jika Tidak Ada
+                        </button>
+<button class="w-full py-2 text-primary font-bold hover:bg-primary-fixed/20 rounded-lg transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-md" data-icon="tune">tune</span>
+                            Configure API
+                        </button>
+</div></section>
+<!-- Help/Info Card -->
+<section class="bg-primary-container text-on-primary-container rounded-xl p-lg relative overflow-hidden"><div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0px); background-size: 20px 20px;"></div>
+<h4 class="text-headline-sm font-headline-sm mb-md relative z-10">Bantuan &amp; Informasi Isolir</h4>
+<ul class="space-y-md text-body-sm opacity-90 relative z-10">
+<li class="flex gap-3">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="info">info</span>
+<span class=""><strong>Grace Period:</strong> Pelanggan akan dipindahkan ke profile isolir secara otomatis jika tagihan melewati batas tempo selama 3 hari.</span>
+</li>
+<li class="flex gap-3">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="security">security</span>
+<span class=""><strong>Port Requirements:</strong> Pastikan port API (8728 untuk SSL atau 8729) MikroTik terbuka dan dapat diakses dari IP server billing.</span>
+</li>
+<li class="flex gap-3">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="help">help</span>
+<span class="">Gunakan tombol "Buat Profile" jika profile isolir belum tersedia di MikroTik Anda.</span>
+</li>
+</ul></section>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 right-0 h-16 bg-surface-container-lowest border-t border-outline-variant flex md:hidden z-50 items-center justify-around px-md">
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-bold">Dash</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-[10px] font-bold">Users</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined active-nav" data-icon="block" style="font-variation-settings: 'FILL' 1;">block</span>
+<span class="text-[10px] font-bold">Isolir</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-[10px] font-bold">Billing</span>
+</button>
+</nav>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.style.transform = 'scale(0.97)';
+            });
+            el.addEventListener('mouseup', () => {
+                el.style.transform = '';
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = '';
+            });
+        });
+
+        // Mock for Sync action
+        const syncBtn = document.querySelector('button:has([data-icon="refresh"])');
+        if(syncBtn) {
+            syncBtn.addEventListener('click', () => {
+                const icon = syncBtn.querySelector('.material-symbols-outlined');
+                icon.classList.add('animate-spin');
+                syncBtn.classList.add('opacity-50', 'pointer-events-none');
+                setTimeout(() => {
+                    icon.classList.remove('animate-spin');
+                    syncBtn.classList.remove('opacity-50', 'pointer-events-none');
+                }, 1500);
+            });
+        }
+    </script>
+
+
+</body></html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RTRWNet | Manajemen Jaringan Internet RT/RW Otomatis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e1e2ed",
+                    "surface": "#faf8ff",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#bc4800",
+                    "secondary": "#505f76",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#ededf9",
+                    "on-surface-variant": "#434655",
+                    "on-secondary-fixed": "#0b1c30",
+                    "inverse-primary": "#b4c5ff",
+                    "surface-container-highest": "#e1e2ed",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "tertiary-fixed": "#ffdbcd",
+                    "outline-variant": "#c3c6d7",
+                    "on-secondary-container": "#54647a",
+                    "background": "#faf8ff",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "tertiary": "#943700",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#faf8ff",
+                    "on-primary-fixed": "#00174b",
+                    "primary-fixed": "#dbe1ff",
+                    "inverse-surface": "#2e3039",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "inverse-on-surface": "#f0f0fb",
+                    "primary-container": "#2563eb",
+                    "on-tertiary-container": "#ffede6",
+                    "surface-container-low": "#f3f3fe",
+                    "surface-tint": "#0053db",
+                    "surface-container-high": "#e7e7f3",
+                    "on-surface": "#191b23",
+                    "outline": "#737686",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "surface-dim": "#d9d9e5",
+                    "secondary-container": "#d0e1fb",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed": "#360f00",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#eeefff",
+                    "secondary-fixed": "#d3e4fe",
+                    "primary": "#004ac6",
+                    "on-background": "#191b23"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "gutter": "16px",
+                    "container-margin-mobile": "16px",
+                    "container-margin-desktop": "32px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "unit": "4px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #faf8ff;
+            scroll-behavior: smooth;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+        .nav-active {
+            color: #004ac6;
+            font-weight: 600;
+            border-bottom: 2px solid #004ac6;
+            padding-bottom: 4px;
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center h-16 px-gutter md:px-container-margin-desktop max-w-full bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline">
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">RTRWNet</div>
+<div class="hidden md:flex gap-xl items-center font-body-md text-body-md">
+<a class="nav-active" href="#features">Features</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-colors duration-200" href="#">Pricing</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-colors duration-200" href="#">Documentation</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-colors duration-200" href="#">Support</a>
+</div>
+<div class="flex gap-md items-center">
+<button class="hidden md:block text-primary font-semibold hover:opacity-80 transition-all">Login</button>
+<button class="bg-primary text-on-primary px-lg py-sm rounded-lg font-semibold hover:opacity-90 transition-all">Get Started</button>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative pt-32 pb-20 overflow-hidden">
+<div class="absolute inset-0 -z-10 opacity-30">
+
+</div>
+<div class="container mx-auto px-gutter md:px-container-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+<div class="space-y-lg text-center lg:text-left">
+<div class="inline-flex items-center gap-xs bg-primary-container/10 text-primary-container px-sm py-xs rounded-full font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+                    Solusi ISP RT/RW #1 di Indonesia
+                </div>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface tracking-tight">
+                    Manajemen Jaringan Internet RT/RW Jadi <span class="text-primary">Lebih Mudah &amp; Otomatis</span>
+</h1>
+<p class="font-body-lg text-body-lg text-secondary max-w-2xl mx-auto lg:mx-0">
+                    Integrasi MikroTik, Billing Otomatis, dan Monitoring Real-time dalam satu platform yang dirancang untuk stabilitas bisnis jaringan Anda.
+                </p>
+<div class="flex flex-col sm:flex-row gap-md justify-center lg:justify-start pt-md">
+<button class="bg-primary text-on-primary px-xl py-lg rounded-lg font-bold text-body-lg shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">
+                        Coba Sekarang
+                    </button>
+<button class="bg-surface border border-outline-variant px-xl py-lg rounded-lg font-bold text-body-lg hover:bg-surface-container-low transition-colors inline-flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined">play_circle</span>
+                        Lihat Demo
+                    </button>
+</div>
+</div>
+<div class="relative lg:block">
+<div class="glass-card rounded-2xl p-sm shadow-2xl relative z-10 overflow-hidden transform lg:rotate-2 hover:rotate-0 transition-transform duration-500">
+<img class="rounded-xl w-full h-auto" data-alt="A professional dashboard interface showing network statistics, MikroTik status indicators, and active subscriber charts. The design is clean with a corporate blue color palette, featuring modern data visualization graphs and a responsive layout for ISP management." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0ncM5XqAhyJcvUTZqne5CsktEbSA9Aogv9_kbyRKG7EpOPjXgm8WuAjjjUM7qx4IxqjpIXXw6ej3fY7kXhN5iFwCMfbSiTBZz4lmgeEZkwZuJcowj9CNE4bIxhf9A_-F_LF9clkUfEAgMBj0wFCbQEhOlNtOVVGtloEQfoH1s-CKJKXDiCpZ7MGrGlXfrWx99mWP-DHyJSCgJqfzpKzefJTvc1AIFPDOBWlHT3RRNnje8yDU6Y5GGXWpUaP2SrIX1euyx-i2IHeU"/>
+</div>
+<div class="absolute -bottom-6 -left-6 glass-card p-md rounded-xl shadow-xl z-20 flex items-center gap-md animate-bounce">
+<div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-secondary">Billing Terbaru</div>
+<div class="font-headline-sm text-headline-sm text-on-surface">Rp 2.450.000</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Stats Section -->
+<section class="bg-surface-container py-xl border-y border-outline-variant">
+<div class="container mx-auto px-gutter md:px-container-margin-desktop grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-lg text-center">
+<div class="space-y-xs">
+<div class="font-display-lg-mobile text-primary">1000+</div>
+<div class="font-label-md text-secondary uppercase tracking-widest">Users Terdaftar</div>
+</div>
+<div class="space-y-xs">
+<div class="font-display-lg-mobile text-primary">500+</div>
+<div class="font-label-md text-secondary uppercase tracking-widest">MikroTik Connected</div>
+</div>
+<div class="space-y-xs">
+<div class="font-display-lg-mobile text-primary">99.9%</div>
+<div class="font-label-md text-secondary uppercase tracking-widest">Uptime System</div>
+</div>
+<div class="hidden lg:block space-y-xs">
+<div class="font-display-lg-mobile text-primary">24/7</div>
+<div class="font-label-md text-secondary uppercase tracking-widest">Priority Support</div>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-xl bg-surface" id="features">
+<div class="container mx-auto px-gutter md:px-container-margin-desktop">
+<div class="text-center mb-xl space-y-md">
+<h2 class="font-headline-md text-headline-md md:text-display-lg text-on-surface">Fitur Unggulan RTRWNet</h2>
+<p class="font-body-md text-body-md text-secondary max-w-xl mx-auto">
+                    Segala kemudahan dalam satu dasbor untuk mengoptimalkan operasional ISP Anda.
+                </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+<!-- Large Feature: Monitoring -->
+<div class="md:col-span-8 bg-surface-container-low border border-outline-variant rounded-2xl p-lg flex flex-col justify-between overflow-hidden relative group">
+<div class="relative z-10 space-y-sm max-w-md">
+<div class="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">account_tree</span>
+</div>
+<h3 class="font-headline-md text-headline-md">Monitoring Jaringan</h3>
+<p class="font-body-md text-secondary">Visualisasi topologi lengkap dari Server, ODC, ODP hingga perangkat User secara real-time. Deteksi gangguan lebih cepat.</p>
+</div>
+<div class="mt-lg relative z-10 h-48 md:h-64">
+<img class="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-500" data-alt="A sophisticated network topology map visualization with nodes connecting a central server to ODC, ODP, and end-user devices. The aesthetic is tech-focused with glowing lines on a dark background, representing a high-tech network monitoring dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmWMsWE2Wy1XqAgQ3CvOAK0AeEX2uja4-XCUzkRWgqeBwxlBFfa1TNKsMcJk8anSa7iCeEB_BLa6XUMYX5vciHdoWvCz5NGtduZbWLGrwELlNJZ_r-RAAKW6ULzA2R0LAmhsqRUaJmKhHb_k3NpXtprcBEtnot6V6HIPUAuNDSWVbJF1X3tHYuoMtNUrTBvhPUI1QIuTO0Z6CSl7OurirtJcM5FE-As9zzB__M9amp0zIdggUtly8UoFmW8aaUo1tlvBYGWmoNN-4"/>
+</div>
+<div class="absolute right-0 bottom-0 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[300px]">hub</span>
+</div>
+</div>
+<!-- Feature: Isolir -->
+<div class="md:col-span-4 bg-primary text-on-primary rounded-2xl p-lg flex flex-col justify-between hover:shadow-xl hover:shadow-primary/20 transition-all">
+<div class="space-y-sm">
+<div class="w-12 h-12 bg-white/20 text-white rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">block</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm">Isolir Otomatis</h3>
+<p class="text-white/80 font-body-sm">Matikan akses pelanggan menunggak secara otomatis lewat MikroTik API. Tanpa intervensi manual.</p>
+</div>
+<button class="mt-xl text-white font-bold inline-flex items-center gap-xs hover:gap-sm transition-all">
+                        Pelajari Selengkapnya <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Feature: Billing -->
+<div class="md:col-span-6 bg-surface-container border border-outline-variant rounded-2xl p-lg flex flex-col gap-lg group">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-secondary-container text-on-secondary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">receipt_long</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm">Billing Cerdas</h3>
+<p class="font-label-md text-secondary">Tagihan Massal &amp; Notifikasi</p>
+</div>
+</div>
+<p class="font-body-md text-secondary">Generate ribuan tagihan dalam hitungan detik. Integrasi otomatis dengan notifikasi WhatsApp dan Telegram untuk mengingatkan pelanggan sebelum jatuh tempo.</p>
+<div class="bg-white rounded-xl p-md shadow-sm border border-outline-variant/30 flex items-center gap-md">
+<div class="bg-blue-50 p-sm rounded-lg">
+<img class="w-10 h-10" data-alt="Iconic representation of a mobile phone screen displaying a professional WhatsApp billing notification message with a payment link. Clean, modern flat design style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAjC1K_CM_n7iT1Z0zgYSS864g14YJ9r_YerpubgL0BXDE3J7GH8J_EKPa8D3Iep2w4a1rvXOR3i4ktXrhOvp8zO9DajRhJsLifexgJKG4eVqO7xLTivG7Z8DmZN_jHqSkASheO8AgiYkECrZTJed1F-EXi4kzfoSSdv-SQfQY1t6zhm5qY4zgd3m9Uvm4hG-V7uv_685yx4z6oFXrOFjCoriRJSKSLE26vEwDrRZtcr5Itinzlrsh9jox01ZQK9YS8r6dvmpfHrk"/>
+</div>
+<div class="flex-1">
+<div class="h-2 bg-outline-variant rounded w-3/4 mb-xs"></div>
+<div class="h-2 bg-outline-variant/50 rounded w-1/2"></div>
+</div>
+<span class="material-symbols-outlined text-green-500">check_circle</span>
+</div>
+</div>
+<!-- Feature: Multi-tenancy -->
+<div class="md:col-span-6 bg-surface-container-high border border-outline-variant rounded-2xl p-lg flex flex-col justify-center gap-md relative overflow-hidden">
+<div class="space-y-sm relative z-10">
+<div class="w-12 h-12 bg-tertiary-container text-on-tertiary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">domain</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm">Multi-tenancy</h3>
+<p class="font-body-md text-secondary">Kelola banyak lokasi atau tenant dalam satu akun dashboard pusat. Cocok untuk skalabilitas bisnis yang agresif.</p>
+</div>
+<div class="flex gap-sm mt-md relative z-10">
+<div class="bg-white px-md py-xs rounded-full border border-outline font-label-sm text-secondary">Cabang Jakarta</div>
+<div class="bg-white px-md py-xs rounded-full border border-outline font-label-sm text-secondary">Cabang Bandung</div>
+<div class="bg-white px-md py-xs rounded-full border border-outline font-label-sm text-secondary">+3 Lainnya</div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-[150px]">business</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-xl bg-primary-container">
+<div class="container mx-auto px-gutter md:px-container-margin-desktop">
+<div class="bg-surface rounded-[2rem] p-lg md:p-xl flex flex-col md:flex-row items-center justify-between gap-xl shadow-2xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-lg opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[200px]">rocket_launch</span>
+</div>
+<div class="space-y-md text-center md:text-left relative z-10">
+<h2 class="font-headline-md md:font-display-lg text-headline-md md:text-display-lg text-on-surface">Siap Digitalisasi Jaringan Anda?</h2>
+<p class="font-body-lg text-body-lg text-secondary max-w-lg">
+                        Mulai optimalkan manajemen ISP Anda hari ini. Gratis trial 14 hari tanpa kartu kredit.
+                    </p>
+</div>
+<div class="flex flex-col sm:flex-row gap-md relative z-10">
+<button class="bg-primary text-on-primary px-xl py-lg rounded-lg font-bold text-body-lg hover:brightness-110 transition-all">
+                        Daftar Sekarang
+                    </button>
+<button class="bg-surface border-2 border-primary text-primary px-xl py-lg rounded-lg font-bold text-body-lg hover:bg-primary/5 transition-all">
+                        Hubungi Sales
+                    </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full py-lg px-gutter md:px-container-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container dark:bg-surface-container-highest border-t border-outline-variant dark:border-outline">
+<div class="flex flex-col items-center md:items-start gap-xs">
+<div class="text-headline-sm font-headline-sm font-bold text-on-surface">RTRWNet</div>
+<div class="font-label-md text-label-md text-secondary dark:text-on-secondary-fixed-variant">© 2024 RTRWNet ISP Management. All rights reserved.</div>
+</div>
+<div class="flex gap-lg items-center font-label-md text-label-md">
+<a class="text-secondary dark:text-on-secondary-fixed-variant hover:underline transition-all" href="#">Privacy Policy</a>
+<a class="text-secondary dark:text-on-secondary-fixed-variant hover:underline transition-all" href="#">Terms of Service</a>
+<a class="text-secondary dark:text-on-secondary-fixed-variant hover:underline transition-all" href="#">API Status</a>
+<a class="text-secondary dark:text-on-secondary-fixed-variant hover:underline transition-all" href="#">Contact</a>
+</div>
+</footer>
+<script>
+        // Simple scroll reveal interaction
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div > div').forEach(el => {
+            el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+            observer.observe(el);
+        });
+    </script>
+</body></html>

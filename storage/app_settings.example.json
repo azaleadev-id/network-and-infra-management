@@ -1,0 +1,11 @@
+{
+    "app_name": "Network & Infrastructure Management",
+    "traffic_interface": "ether1",
+    "mikrotik_host": "router.example.local",
+    "mikrotik_user": "your_router_username",
+    "mikrotik_pass": "your_router_password",
+    "isolir_profile_name": "ISOLIR",
+    "isolir_profile_rate_limit": "64k/64k",
+    "isolir_profile_comment": "Automatic isolation profile for overdue clients",
+    "billing_due_day": 28
+}
